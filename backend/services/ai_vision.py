@@ -1,7 +1,7 @@
-# import cv2
+import cv2
 import numpy as np
 from PIL import Image
-# import tensorflow as tf
+import tensorflow as tf
 from typing import Dict, List, Any, Tuple
 import asyncio
 import os
@@ -32,15 +32,13 @@ class CropQualityAnalyzer:
         """Load pre-trained crop quality model"""
         try:
             # Load TensorFlow model for crop quality classification
-            # model_path = "models/crop_quality_model.h5"
-            # if os.path.exists(model_path):
-            #     self.model = tf.keras.models.load_model(model_path)
-            #     print("✅ Crop quality model loaded successfully")
-            # else:
-            #     print("⚠️ Model not found, using rule-based analysis")
-            #     self.model = None
-            self.model = None
-            print("⚠️ Using rule-based analysis (ML model not available)")
+            model_path = "models/crop_quality_model.h5"
+            if os.path.exists(model_path):
+                self.model = tf.keras.models.load_model(model_path)
+                print("✅ Crop quality model loaded successfully")
+            else:
+                print("⚠️ Model not found, using rule-based analysis")
+                self.model = None
         except Exception as e:
             print(f"❌ Error loading model: {e}")
             self.model = None
@@ -252,25 +250,34 @@ class CropQualityAnalyzer:
         """Predict quality using trained model"""
         try:
             # Preprocess for model
-            # processed_image = cv2.resize(image, (224, 224))
-            # processed_image = processed_image / 255.0
-            # processed_image = np.expand_dims(processed_image, axis=0)
+            processed_image = cv2.resize(image, (224, 224))
+            processed_image = processed_image / 255.0
+            processed_image = np.expand_dims(processed_image, axis=0)
             
             # Make prediction
-            # prediction = self.model.predict(processed_image)
-            # predicted_class = np.argmax(prediction[0])
-            # confidence = float(np.max(prediction[0]))
-            
-            # For now, use rule-based prediction
-            return {
-                'predicted_class': 'standard',
-                'confidence': 0.7,
-                'probabilities': {
-                    'premium': 0.2,
-                    'standard': 0.7,
-                    'substandard': 0.1
+            if self.model is not None:
+                prediction = self.model.predict(processed_image)
+                predicted_class = np.argmax(prediction[0])
+                confidence = float(np.max(prediction[0]))
+                
+                return {
+                    'predicted_class': self.class_labels[predicted_class],
+                    'confidence': confidence,
+                    'probabilities': {
+                        label: float(prob) for label, prob in zip(self.class_labels, prediction[0])
+                    }
                 }
-            }
+            else:
+                # Fallback to rule-based prediction
+                return {
+                    'predicted_class': 'standard',
+                    'confidence': 0.7,
+                    'probabilities': {
+                        'premium': 0.2,
+                        'standard': 0.7,
+                        'substandard': 0.1
+                    }
+                }
             
         except Exception as e:
             print(f"❌ Error predicting with model: {e}")

@@ -5,9 +5,9 @@ from datetime import datetime, timedelta
 import asyncio
 import aiohttp
 import json
-# from sklearn.ensemble import RandomForestClassifier
-# from sklearn.preprocessing import StandardScaler
-# import joblib
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.preprocessing import StandardScaler
+import joblib
 import os
 
 class RiskEngine:
@@ -48,12 +48,12 @@ class RiskEngine:
     
     def initialize_default_model(self):
         """Initialize default model if not available"""
-        # self.model = RandomForestClassifier(
-        #     n_estimators=100,
-        #     max_depth=10,
-        #     random_state=42
-        # )
-        # self.scaler = StandardScaler()
+        self.model = RandomForestClassifier(
+            n_estimators=100,
+            max_depth=10,
+            random_state=42
+        )
+        self.scaler = StandardScaler()
     
     async def assess_crop_risk(self, batch_data: Dict[str, Any]) -> Dict[str, Any]:
         """Comprehensive risk assessment for crop batch"""
