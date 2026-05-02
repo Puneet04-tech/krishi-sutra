@@ -66,7 +66,7 @@ export const StatsCard: React.FC<StatsCardProps> = ({
                 </span>
               </div>
               {changeLabel && (
-                <Badge variant="outline" size="sm">
+                <Badge variant="default" size="sm">
                   {changeLabel}
                 </Badge>
               )}

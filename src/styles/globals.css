@@ -123,13 +123,49 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn-primary {
-  @apply px-6 py-3 bg-gradient-to-r from-green-700 to-green-600 text-white font-semibold rounded-xl hover:from-green-600 hover:to-green-500 transition-all duration-300 transform hover:scale-105 shadow-lg;
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(to right, #15803d, #16a34a);
+  color: white;
+  font-weight: 600;
+  border-radius: 0.75rem;
+  transition: all 0.3s;
+  transform: scale(1);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(to right, #16a34a, #22c55e);
+  transform: scale(1.05);
 }
 
 .btn-secondary {
-  @apply px-6 py-3 bg-gradient-to-r from-slate-600 to-slate-500 text-white font-semibold rounded-xl hover:from-slate-500 hover:to-slate-400 transition-all duration-300 transform hover:scale-105 shadow-lg;
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(to right, #475569, #64748b);
+  color: white;
+  font-weight: 600;
+  border-radius: 0.75rem;
+  transition: all 0.3s;
+  transform: scale(1);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.btn-secondary:hover {
+  background: linear-gradient(to right, #64748b, #94a3b8);
+  transform: scale(1.05);
 }
 
 .btn-accent {
-  @apply px-6 py-3 bg-gradient-to-r from-amber-500 to-amber-400 text-white font-semibold rounded-xl hover:from-amber-400 hover:to-amber-300 transition-all duration-300 transform hover:scale-105 shadow-lg;
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(to right, #f59e0b, #fbbf24);
+  color: white;
+  font-weight: 600;
+  border-radius: 0.75rem;
+  transition: all 0.3s;
+  transform: scale(1);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.btn-accent:hover {
+  background: linear-gradient(to right, #fbbf24, #fde047);
+  transform: scale(1.05);
 }

@@ -38,14 +38,14 @@ class ClaimType(str, Enum):
 # Base Models
 class BaseSchema(BaseModel):
     class Config:
-        orm_mode = True
+        from_attributes = True
         use_enum_values = True
 
 # Farmer Profile
 class FarmerProfile(BaseSchema):
     user_id: str
     name: str = Field(..., min_length=2, max_length=100)
-    email: str = Field(..., regex=r'^[^@]+@[^@]+\.[^@]+$')
+    email: str = Field(..., pattern=r'^[^@]+@[^@]+\.[^@]+$')
     phone: str = Field(..., min_length=10, max_length=15)
     location: str = Field(..., min_length=5, max_length=200)
     state: str = Field(..., min_length=2, max_length=50)

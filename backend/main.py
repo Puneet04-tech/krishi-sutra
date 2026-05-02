@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException, Depends, File, UploadFile, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import HTTPBearer
+from contextlib import asynccontextmanager
 from typing import List, Optional
 import uvicorn
 import asyncio
@@ -56,19 +57,6 @@ websocket_manager = WebSocketManager()
 async def get_current_user(token: str = Depends(security)):
     # Implement JWT token validation here
     return {"user_id": "demo_user", "role": "farmer"}
-
-@app.on_event("startup")
-async def startup_event():
-    """Initialize database connections and blockchain contracts"""
-    await db.connect()
-    await blockchain_service.initialize_contracts()
-    print("🚀 AgriTrust 360 Backend Started Successfully")
-
-@app.on_event("shutdown")
-async def shutdown_event():
-    """Cleanup connections"""
-    await db.disconnect()
-    print("🔴 AgriTrust 360 Backend Shut Down")
 
 # Health Check
 @app.get("/health")

@@ -5,10 +5,10 @@ import asyncio
 import aiohttp
 import json
 from datetime import datetime, timedelta
-import rasterio
-from rasterio.plot import show
-import geopandas as gpd
-from shapely.geometry import Point, Polygon
+# import rasterio
+# from rasterio.plot import show
+# import geopandas as gpd
+# from shapely.geometry import Point, Polygon
 import os
 from dotenv import load_dotenv
 

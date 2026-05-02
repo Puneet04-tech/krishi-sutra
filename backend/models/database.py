@@ -46,7 +46,7 @@ class Database:
         # Farmers collection indexes
         await self.db.farmers.create_index("user_id", unique=True)
         await self.db.farmers.create_index("location")
-        await self.db.farmers.create_index("created_at", direction=DESCENDING)
+        await self.db.farmers.create_index([("created_at", -1)])
         
         # Crop batches collection indexes
         await self.db.crop_batches.create_index("batch_id", unique=True)
@@ -54,20 +54,20 @@ class Database:
         await self.db.crop_batches.create_index("token_id")
         await self.db.crop_batches.create_index("crop_type")
         await self.db.crop_batches.create_index("status")
-        await self.db.crop_batches.create_index("created_at", direction=DESCENDING)
+        await self.db.crop_batches.create_index([("created_at", -1)])
         
         # Supply chain events collection indexes
         await self.db.supply_chain_events.create_index("batch_id")
         await self.db.supply_chain_events.create_index("event_type")
         await self.db.supply_chain_events.create_index("location")
-        await self.db.supply_chain_events.create_index("timestamp", direction=DESCENDING)
+        await self.db.supply_chain_events.create_index([("timestamp", -1)])
         
         # Marketplace listings collection indexes
         await self.db.marketplace_listings.create_index("listing_id", unique=True)
         await self.db.marketplace_listings.create_index("token_id")
         await self.db.marketplace_listings.create_index("seller_id")
         await self.db.marketplace_listings.create_index("status")
-        await self.db.marketplace_listings.create_index("created_at", direction=DESCENDING)
+        await self.db.marketplace_listings.create_index([("created_at", -1)])
         
         # Insurance policies collection indexes
         await self.db.insurance_policies.create_index("policy_id", unique=True)
@@ -80,7 +80,7 @@ class Database:
         await self.db.insurance_claims.create_index("policy_id")
         await self.db.insurance_claims.create_index("farmer_id")
         await self.db.insurance_claims.create_index("status")
-        await self.db.insurance_claims.create_index("created_at", direction=DESCENDING)
+        await self.db.insurance_claims.create_index([("created_at", -1)])
         
         print("✅ Database indexes created successfully")
     
