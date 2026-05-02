@@ -164,14 +164,7 @@ export const Marketplace: React.FC<MarketplaceProps> = () => {
     }
   }
 
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-IN', {
-      style: 'currency',
-      currency: 'INR',
-      minimumFractionDigits: 0,
-    }).format(amount)
-  }
-
+  
   return (
     <div className="space-y-6">
       {/* Notification */}
