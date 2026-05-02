@@ -1,0 +1,27 @@
+{
+  "name": "KrishiSutra - Agri-Financing & Supply Chain",
+  "short_name": "KrishiSutra",
+  "description": "Decentralized blockchain ecosystem for automated agri-financing and supply chain provenance",
+  "theme_color": "#1B4332",
+  "background_color": "#F8F9FA",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "categories": ["business", "finance", "agriculture"],
+  "lang": "en"
+}
