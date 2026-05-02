@@ -83,6 +83,13 @@ export const FarmerProfile: React.FC<FarmerProfileProps> = () => {
     }
   }
 
+  // Handle view full profile
+  const handleViewFullProfile = () => {
+    console.log('View full profile:', profile)
+    // Here you would navigate to detailed profile page or open modal
+    alert('Viewing full profile details...')
+  }
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -164,7 +171,11 @@ export const FarmerProfile: React.FC<FarmerProfileProps> = () => {
                 </div>
               </div>
 
-              <Button className="w-full" variant="outline">
+              <Button 
+                className="w-full" 
+                variant="outline"
+                onClick={() => handleViewFullProfile()}
+              >
                 View Full Profile
               </Button>
             </CardContent>

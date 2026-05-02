@@ -61,6 +61,37 @@ interface InsuranceClaimsProps {}
 
 export const InsuranceClaims: React.FC<InsuranceClaimsProps> = () => {
   const [activeTab, setActiveTab] = useState<'policies' | 'claims' | 'alerts'>('policies')
+  const [notification, setNotification] = useState<string | null>(null)
+
+  // Show notification
+  const showNotification = (message: string) => {
+    setNotification(message)
+    setTimeout(() => setNotification(null), 3000)
+  }
+
+  // Handle file claim
+  const handleFileClaim = async (policy: InsurancePolicy) => {
+    try {
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1000))
+      showNotification(`Claim filed for policy ${policy.policyNumber}!`)
+      
+      // Here you would make actual API call:
+      // const response = await fetch('/api/insurance/claim', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify({ policyId: policy.id, claimType: 'damage' })
+      // })
+    } catch (error) {
+      showNotification('Failed to file claim. Please try again.')
+    }
+  }
+
+  // Handle view policy details
+  const handleViewPolicyDetails = (policy: InsurancePolicy) => {
+    showNotification(`Viewing details for policy ${policy.policyNumber}`)
+    console.log('View policy details:', policy)
+  }
 
   const mockPolicies: InsurancePolicy[] = [
     {
@@ -174,6 +205,17 @@ export const InsuranceClaims: React.FC<InsuranceClaimsProps> = () => {
 
   return (
     <div className="space-y-6">
+      {/* Notification */}
+      {notification && (
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          className="bg-primary-green text-white px-4 py-3 rounded-lg shadow-lg"
+        >
+          {notification}
+        </motion.div>
+      )}
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
@@ -320,8 +362,19 @@ export const InsuranceClaims: React.FC<InsuranceClaimsProps> = () => {
                     </div>
 
                     <div className="flex space-x-2">
-                      <Button className="flex-1">File Claim</Button>
-                      <Button variant="outline" className="flex-1">View Details</Button>
+                      <Button 
+                        className="flex-1"
+                        onClick={() => handleFileClaim(policy)}
+                      >
+                        File Claim
+                      </Button>
+                      <Button 
+                        variant="outline" 
+                        className="flex-1"
+                        onClick={() => handleViewPolicyDetails(policy)}
+                      >
+                        View Details
+                      </Button>
                     </div>
                   </CardContent>
                 </Card>

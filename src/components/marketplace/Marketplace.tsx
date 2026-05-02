@@ -39,6 +39,51 @@ interface MarketplaceProps {}
 export const Marketplace: React.FC<MarketplaceProps> = () => {
   const [selectedFilter, setSelectedFilter] = useState('all')
   const [searchQuery, setSearchQuery] = useState('')
+  const [loading, setLoading] = useState(false)
+  const [notification, setNotification] = useState<string | null>(null)
+
+  // Format currency helper
+  const formatCurrency = (amount: number) => {
+    return new Intl.NumberFormat('en-IN', {
+      style: 'currency',
+      currency: 'INR',
+      maximumFractionDigits: 0,
+    }).format(amount)
+  }
+
+  // Show notification
+  const showNotification = (message: string) => {
+    setNotification(message)
+    setTimeout(() => setNotification(null), 3000)
+  }
+
+  // Handle buy token
+  const handleBuyToken = async (token: YieldToken) => {
+    setLoading(true)
+    try {
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1000))
+      showNotification(`Successfully purchased ${token.cropName} tokens!`)
+      
+      // Here you would make actual API call:
+      // const response = await fetch('/api/marketplace/buy', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify({ tokenId: token.id, quantity: 1 })
+      // })
+    } catch (error) {
+      showNotification('Failed to purchase tokens. Please try again.')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  // Handle view details
+  const handleViewDetails = (token: YieldToken) => {
+    showNotification(`Viewing details for ${token.cropName}`)
+    // Here you would navigate to detail page or open modal
+    console.log('View details:', token)
+  }
 
   const mockTokens: YieldToken[] = [
     {
@@ -129,6 +174,17 @@ export const Marketplace: React.FC<MarketplaceProps> = () => {
 
   return (
     <div className="space-y-6">
+      {/* Notification */}
+      {notification && (
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          className="bg-primary-green text-white px-4 py-3 rounded-lg shadow-lg"
+        >
+          {notification}
+        </motion.div>
+      )}
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
@@ -258,11 +314,18 @@ export const Marketplace: React.FC<MarketplaceProps> = () => {
 
                 {/* Action Buttons */}
                 <div className="flex space-x-2 pt-2">
-                  <Button className="flex-1">
+                  <Button 
+                    className="flex-1"
+                    onClick={() => handleBuyToken(token)}
+                  >
                     <IndianRupee className="w-4 h-4 mr-2" />
                     Buy Now
                   </Button>
-                  <Button variant="outline" className="flex-1">
+                  <Button 
+                    variant="outline" 
+                    className="flex-1"
+                    onClick={() => handleViewDetails(token)}
+                  >
                     View Details
                   </Button>
                 </div>
