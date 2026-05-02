@@ -9,7 +9,13 @@ import { RevenueStatsCard, CropStatsCard, CarbonStatsCard, InsuranceStatsCard } 
 import { CropPriceChart } from '@/components/dashboard/CropPriceChart'
 import { SupplyChainTimeline } from '@/components/supply-chain/Timeline'
 import { QRScanner } from '@/components/qr/QRScanner'
+import { Marketplace } from '@/components/marketplace/Marketplace'
+import { LoanApplication } from '@/components/loans/LoanApplication'
+import { InsuranceClaims } from '@/components/insurance/InsuranceClaims'
+import { FarmerProfile } from '@/components/farmer/FarmerProfile'
+import { WeatherWidget } from '@/components/weather/WeatherWidget'
 import { Badge } from '@/components/ui/Badge'
+import { useLanguage } from '@/contexts/LanguageContext'
 import { 
   QrCode, 
   TrendingUp, 
@@ -24,6 +30,8 @@ import {
 
 export default function HomePage() {
   const [showQRScanner, setShowQRScanner] = useState(false)
+  const [activeSection, setActiveSection] = useState('dashboard')
+  const { t } = useLanguage()
 
   // Mock data for charts and timeline
   const priceData = [
@@ -113,10 +121,10 @@ export default function HomePage() {
           className="text-center mb-8"
         >
           <h1 className="text-4xl md:text-5xl font-bold text-primary-green mb-4">
-            Welcome to KrishiSutra
+            {t('dashboard.welcome')}
           </h1>
           <p className="text-lg text-secondary-slate-600 max-w-2xl mx-auto">
-            Empowering farmers with blockchain-verified financing, transparent supply chains, and sustainable agriculture solutions
+            {t('dashboard.subtitle')}
           </p>
           <div className="flex flex-wrap justify-center gap-3 mt-6">
             <Badge variant="success" className="flex items-center space-x-1">
@@ -146,28 +154,31 @@ export default function HomePage() {
             className="h-auto p-4 flex flex-col items-center space-y-2"
           >
             <QrCode className="w-8 h-8" />
-            <span className="text-sm">Scan QR</span>
+            <span className="text-sm">{t('action.scanQR')}</span>
           </Button>
           <Button
             variant="secondary"
             className="h-auto p-4 flex flex-col items-center space-y-2"
+            onClick={() => setActiveSection('loans')}
           >
             <IndianRupee className="w-8 h-8" />
-            <span className="text-sm">Get Loan</span>
+            <span className="text-sm">{t('action.getLoan')}</span>
           </Button>
           <Button
             variant="accent"
             className="h-auto p-4 flex flex-col items-center space-y-2"
+            onClick={() => setActiveSection('marketplace')}
           >
             <TrendingUp className="w-8 h-8" />
-            <span className="text-sm">Market</span>
+            <span className="text-sm">{t('action.market')}</span>
           </Button>
           <Button
             variant="ghost"
             className="h-auto p-4 flex flex-col items-center space-y-2 border border-primary-green"
+            onClick={() => setActiveSection('insurance')}
           >
             <Shield className="w-8 h-8" />
-            <span className="text-sm">Insurance</span>
+            <span className="text-sm">{t('action.insurance')}</span>
           </Button>
         </motion.div>
 
@@ -258,19 +269,53 @@ export default function HomePage() {
           </motion.div>
         </div>
 
-        {/* Supply Chain Timeline */}
+        {/* Dynamic Content Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
           className="mt-8"
         >
-          <SupplyChainTimeline
-            events={timelineEvents}
-            batchId="KS-2024-05-001"
-            cropType="Premium Wheat"
-          />
+          {activeSection === 'dashboard' && (
+            <SupplyChainTimeline
+              events={timelineEvents}
+              batchId="KS-2024-05-001"
+              cropType="Premium Wheat"
+            />
+          )}
+          {activeSection === 'marketplace' && <Marketplace />}
+          {activeSection === 'loans' && <LoanApplication />}
+          {activeSection === 'insurance' && <InsuranceClaims />}
+          {activeSection === 'profile' && <FarmerProfile />}
+          {activeSection === 'weather' && <WeatherWidget />}
         </motion.div>
+
+        {/* Section Navigation */}
+        <div className="fixed bottom-4 right-4 z-40">
+          <div className="bg-white rounded-lg shadow-lg p-2 space-y-2">
+            {[
+              { id: 'dashboard', label: 'Dashboard', icon: '📊' },
+              { id: 'marketplace', label: 'Market', icon: '🛒' },
+              { id: 'loans', label: 'Loans', icon: '💰' },
+              { id: 'insurance', label: 'Insurance', icon: '🛡️' },
+              { id: 'profile', label: 'Profile', icon: '👤' },
+              { id: 'weather', label: 'Weather', icon: '🌤️' }
+            ].map((section) => (
+              <button
+                key={section.id}
+                onClick={() => setActiveSection(section.id)}
+                className={`w-12 h-12 rounded-lg flex items-center justify-center text-lg transition-colors ${
+                  activeSection === section.id
+                    ? 'bg-primary-green text-white'
+                    : 'hover:bg-gray-100'
+                }`}
+                title={section.label}
+              >
+                {section.icon}
+              </button>
+            ))}
+          </div>
+        </div>
       </section>
     </div>
   )
