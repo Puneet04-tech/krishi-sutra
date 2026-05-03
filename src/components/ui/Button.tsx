@@ -14,11 +14,11 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const baseStyles = 'inline-flex items-center justify-center rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none'
     
     const variants = {
-      primary: 'bg-gradient-to-r from-primary-green to-primary-green-500 text-white shadow-lg hover:from-primary-green-500 hover:to-primary-green-400',
-      secondary: 'bg-gradient-to-r from-secondary-slate to-secondary-slate-500 text-white shadow-lg hover:from-secondary-slate-500 hover:to-secondary-slate-400',
-      accent: 'bg-gradient-to-r from-accent-gold to-accent-gold-400 text-white shadow-lg hover:from-accent-gold-400 hover:to-accent-gold-300',
-      ghost: 'bg-transparent text-primary-green hover:bg-primary-green-50',
-      outline: 'border-2 border-primary-green text-primary-green hover:bg-primary-green hover:text-white'
+      primary: 'bg-gradient-to-r from-cyber-emerald to-emerald-accent text-black font-bold shadow-lg hover:from-emerald-accent hover:to-emerald-light cyber-emerald-glow uppercase tracking-wider',
+      secondary: 'bg-gradient-to-r from-emerald-light to-cyber-neon text-black font-bold shadow-lg hover:from-cyber-neon hover:to-gold-cyber cyber-neon-glow uppercase tracking-wider',
+      accent: 'bg-gradient-to-r from-emerald-accent to-gold-cyber text-black font-bold shadow-lg hover:from-gold-cyber hover:to-cyber-orange cyber-gold-glow uppercase tracking-wider',
+      ghost: 'bg-transparent text-cyber-emerald font-bold hover:text-emerald-accent hover:bg-frosted-cyber cyber-emerald-glow uppercase tracking-wider',
+      outline: 'border-2 border-cyber-emerald text-cyber-emerald font-bold hover:bg-cyber-emerald hover:text-cyber-dark cyber-emerald-glow uppercase tracking-wider'
     }
     
     const sizes = {

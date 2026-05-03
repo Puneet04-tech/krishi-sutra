@@ -102,7 +102,7 @@ export default function HomePage() {
   }
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-primary-green-50 via-white to-accent-gold-50">
+    <div className="min-h-screen relative overflow-hidden">
       <Header />
       
       {/* QR Scanner Modal */}
@@ -113,17 +113,17 @@ export default function HomePage() {
         />
       )}
 
-      {/* Hero Section */}
-      <section className="container mx-auto px-4 py-8">
+      {/* Dashboard Section */}
+      <section id="dashboard" className="container mx-auto px-4 pt-24 pb-8 scroll-mt-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-8"
         >
-          <h1 className="text-4xl md:text-5xl font-bold text-primary-green mb-4">
+          <h1 className="text-4xl md:text-5xl font-bold text-emerald mb-4">
             {t('dashboard.welcome')}
           </h1>
-          <p className="text-lg text-secondary-slate-600 max-w-2xl mx-auto">
+          <p className="text-lg text-cyber max-w-2xl mx-auto">
             {t('dashboard.subtitle')}
           </p>
           <div className="flex flex-wrap justify-center gap-3 mt-6">
@@ -189,10 +189,30 @@ export default function HomePage() {
           transition={{ delay: 0.2 }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8"
         >
-          <RevenueStatsCard revenue={2850000} change={12.5} />
-          <CropStatsCard crops={47} change={8} />
-          <CarbonStatsCard credits={1250} change={15} />
-          <InsuranceStatsCard coverage={500000} active={true} />
+          <div 
+            className="ceo-card cursor-pointer"
+            onClick={() => console.log('Revenue stats clicked')}
+          >
+            <RevenueStatsCard revenue={2850000} change={12.5} />
+          </div>
+          <div 
+            className="ceo-card cursor-pointer"
+            onClick={() => console.log('Crop stats clicked')}
+          >
+            <CropStatsCard crops={47} change={8} />
+          </div>
+          <div 
+            className="ceo-card cursor-pointer"
+            onClick={() => console.log('Carbon stats clicked')}
+          >
+            <CarbonStatsCard credits={1250} change={15} />
+          </div>
+          <div 
+            className="ceo-card cursor-pointer"
+            onClick={() => console.log('Insurance stats clicked')}
+          >
+            <InsuranceStatsCard coverage={500000} active={true} />
+          </div>
         </motion.div>
 
         {/* Main Content Grid */}
@@ -269,26 +289,35 @@ export default function HomePage() {
           </motion.div>
         </div>
 
-        {/* Dynamic Content Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
-          className="mt-8"
-        >
-          {activeSection === 'dashboard' && (
+        {/* Supply Chain Section */}
+        <section id="supply-chain" className="mt-8 scroll-mt-20">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+          >
             <SupplyChainTimeline
               events={timelineEvents}
               batchId="KS-2024-05-001"
               cropType="Premium Wheat"
             />
-          )}
-          {activeSection === 'marketplace' && <Marketplace />}
-          {activeSection === 'loans' && <LoanApplication />}
-          {activeSection === 'insurance' && <InsuranceClaims />}
-          {activeSection === 'profile' && <FarmerProfile />}
-          {activeSection === 'weather' && <WeatherWidget />}
-        </motion.div>
+          </motion.div>
+        </section>
+
+        {/* Marketplace Section */}
+        <section id="marketplace" className="mt-8 scroll-mt-20">
+          <Marketplace />
+        </section>
+
+        {/* Loans Section */}
+        <section id="loans" className="mt-8 scroll-mt-20">
+          <LoanApplication />
+        </section>
+
+        {/* Insurance Section */}
+        <section id="insurance" className="mt-8 scroll-mt-20">
+          <InsuranceClaims />
+        </section>
 
         {/* Section Navigation */}
         <div className="fixed bottom-4 right-4 z-40">

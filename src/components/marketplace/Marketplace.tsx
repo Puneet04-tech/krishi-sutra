@@ -325,11 +325,11 @@ export const Marketplace: React.FC<MarketplaceProps> = () => {
               </CardContent>
             </Card>
           </motion.div>
-        ))}
-      </div>
+          ))}
+        </div>
 
       {/* Market Stats */}
-      <Card>
+      <div className="ceo-card">
         <CardHeader>
           <CardTitle className="flex items-center space-x-2">
             <TrendingUp className="w-5 h-5 text-primary-green" />
@@ -356,7 +356,7 @@ export const Marketplace: React.FC<MarketplaceProps> = () => {
             </div>
           </div>
         </CardContent>
-      </Card>
+      </div>
     </div>
   )
 }

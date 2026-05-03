@@ -1,43 +1,85 @@
 'use client'
 
 import React, { useState } from 'react'
-import { Menu, X, Sun, Moon, Globe, Smartphone } from 'lucide-react'
+import { Menu, X, Globe, Smartphone } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Badge } from '@/components/ui/Badge'
-import { useTheme } from '@/contexts/ThemeContext'
 import { useLanguage } from '@/contexts/LanguageContext'
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const { theme, toggleTheme } = useTheme()
   const { language, setLanguage, t } = useLanguage()
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
   }
 
+  const handleNavClick = (e: React.MouseEvent<HTMLButtonElement>, sectionId: string) => {
+    e.preventDefault()
+    console.log('Navigation clicked:', sectionId)
+    const element = document.getElementById(sectionId)
+    console.log('Element found:', element)
+    if (element) {
+      const headerHeight = 100 // Fixed header height
+      const elementPosition = element.offsetTop - headerHeight
+      console.log('Scrolling to position:', elementPosition)
+      window.scrollTo({
+        top: elementPosition,
+        behavior: 'smooth'
+      })
+    } else {
+      console.log('Element not found for ID:', sectionId)
+    }
+    setIsMenuOpen(false)
+  }
+
   return (
-    <header className="sticky top-0 z-50 glassmorphism border-b border-white/20">
+    <header className="fixed top-0 left-0 right-0 z-[100] glassmorphism border-b border-white/20">
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-linear-to-br from-primary-green to-primary-green-500 rounded-xl flex items-center justify-center">
-              <span className="text-white font-bold text-xl">K</span>
+            <div className="w-10 h-10 bg-gradient-to-br from-cyber-emerald to-cyber-neon flex items-center justify-center cyber-emerald-glow">
+              <span className="text-black font-bold text-xl tracking-wider">K</span>
             </div>
             <div>
-              <h1 className="text-xl font-bold text-primary-green">KrishiSutra</h1>
-              <p className="text-xs text-secondary-slate-600">Agri-Financing & Supply Chain</p>
+              <h1 className="text-xl font-bold text-primary text-emerald tracking-wider">KRISHISUTRA</h1>
+              <p className="text-xs text-secondary text-neon tracking-wider">AGRI-FINTECH SYSTEM</p>
             </div>
           </div>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
-            <a href="#dashboard" className="text-secondary-slate-700 hover:text-primary-green transition-colors">{t('nav.dashboard')}</a>
-            <a href="#supply-chain" className="text-secondary-slate-700 hover:text-primary-green transition-colors">{t('nav.supplyChain')}</a>
-            <a href="#marketplace" className="text-secondary-slate-700 hover:text-primary-green transition-colors">{t('nav.marketplace')}</a>
-            <a href="#loans" className="text-secondary-slate-700 hover:text-primary-green transition-colors">{t('nav.loans')}</a>
-            <a href="#insurance" className="text-secondary-slate-700 hover:text-primary-green transition-colors">{t('nav.insurance')}</a>
+          {/* Center Desktop Navigation */}
+          <nav className="hidden lg:flex items-center space-x-6 absolute left-1/2 transform -translate-x-1/2 z-10">
+            <button 
+              onClick={(e) => handleNavClick(e, 'dashboard')}
+              className="text-secondary hover:text-emerald transition-colors font-bold tracking-wider text-sm px-3 py-2 rounded hover:bg-frosted-cyber bg-transparent border-none cursor-pointer"
+            >
+              {t('nav.dashboard')}
+            </button>
+            <button 
+              onClick={(e) => handleNavClick(e, 'supply-chain')}
+              className="text-secondary hover:text-emerald-accent transition-colors font-bold tracking-wider text-sm px-3 py-2 rounded hover:bg-frosted-cyber bg-transparent border-none cursor-pointer"
+            >
+              {t('nav.supplyChain')}
+            </button>
+            <button 
+              onClick={(e) => handleNavClick(e, 'marketplace')}
+              className="text-secondary hover:text-emerald-light transition-colors font-bold tracking-wider text-sm px-3 py-2 rounded hover:bg-frosted-cyber bg-transparent border-none cursor-pointer"
+            >
+              {t('nav.marketplace')}
+            </button>
+            <button 
+              onClick={(e) => handleNavClick(e, 'loans')}
+              className="text-secondary hover:text-gold transition-colors font-bold tracking-wider text-sm px-3 py-2 rounded hover:bg-frosted-cyber bg-transparent border-none cursor-pointer"
+            >
+              {t('nav.loans')}
+            </button>
+            <button 
+              onClick={(e) => handleNavClick(e, 'insurance')}
+              className="text-secondary hover:text-neon transition-colors font-bold tracking-wider text-sm px-3 py-2 rounded hover:bg-frosted-cyber bg-transparent border-none cursor-pointer"
+            >
+              {t('nav.insurance')}
+            </button>
           </nav>
 
           {/* Right Actions */}
@@ -46,15 +88,6 @@ export const Header = () => {
               <Smartphone className="w-3 h-3 mr-1" />
               PWA Ready
             </Badge>
-            
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={toggleTheme}
-              className="p-2"
-            >
-              {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-            </Button>
 
             <Button variant="ghost" size="sm" className="p-2 relative">
               <Globe className="w-5 h-5" />
@@ -81,7 +114,7 @@ export const Header = () => {
               variant="ghost"
               size="sm"
               onClick={toggleMenu}
-              className="md:hidden p-2"
+              className="lg:hidden p-2"
             >
               {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </Button>
@@ -90,13 +123,38 @@ export const Header = () => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <nav className="md:hidden mt-4 py-4 border-t border-white/20">
-            <div className="flex flex-col space-y-3">
-              <a href="#dashboard" className="text-secondary-slate-700 hover:text-primary-green transition-colors py-2">{t('nav.dashboard')}</a>
-              <a href="#supply-chain" className="text-secondary-slate-700 hover:text-primary-green transition-colors py-2">{t('nav.supplyChain')}</a>
-              <a href="#marketplace" className="text-secondary-slate-700 hover:text-primary-green transition-colors py-2">{t('nav.marketplace')}</a>
-              <a href="#loans" className="text-secondary-slate-700 hover:text-primary-green transition-colors py-2">{t('nav.loans')}</a>
-              <a href="#insurance" className="text-secondary-slate-700 hover:text-primary-green transition-colors py-2">{t('nav.insurance')}</a>
+          <nav className="lg:hidden mt-4 py-4 border-t border-white/20">
+            <div className="flex flex-col space-y-2">
+              <button 
+                onClick={(e) => handleNavClick(e, 'dashboard')}
+                className="text-secondary hover:text-emerald transition-colors font-bold tracking-wider text-sm py-2 px-3 rounded hover:bg-frosted-cyber bg-transparent border-none cursor-pointer text-left"
+              >
+                {t('nav.dashboard')}
+              </button>
+              <button 
+                onClick={(e) => handleNavClick(e, 'supply-chain')}
+                className="text-secondary hover:text-emerald-accent transition-colors font-bold tracking-wider text-sm py-2 px-3 rounded hover:bg-frosted-cyber bg-transparent border-none cursor-pointer text-left"
+              >
+                {t('nav.supplyChain')}
+              </button>
+              <button 
+                onClick={(e) => handleNavClick(e, 'marketplace')}
+                className="text-secondary hover:text-emerald-light transition-colors font-bold tracking-wider text-sm py-2 px-3 rounded hover:bg-frosted-cyber bg-transparent border-none cursor-pointer text-left"
+              >
+                {t('nav.marketplace')}
+              </button>
+              <button 
+                onClick={(e) => handleNavClick(e, 'loans')}
+                className="text-secondary hover:text-gold transition-colors font-bold tracking-wider text-sm py-2 px-3 rounded hover:bg-frosted-cyber bg-transparent border-none cursor-pointer text-left"
+              >
+                {t('nav.loans')}
+              </button>
+              <button 
+                onClick={(e) => handleNavClick(e, 'insurance')}
+                className="text-secondary hover:text-neon transition-colors font-bold tracking-wider text-sm py-2 px-3 rounded hover:bg-frosted-cyber bg-transparent border-none cursor-pointer text-left"
+              >
+                {t('nav.insurance')}
+              </button>
             </div>
           </nav>
         )}
