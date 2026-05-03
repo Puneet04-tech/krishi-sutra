@@ -34,7 +34,21 @@ export const Header = () => {
   }
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-[100] glassmorphism border-b border-white/20">
+    <header 
+      className="fixed top-0 left-0 right-0 bg-cyber-dark border-b-2 border-cyber-emerald shadow-2xl"
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 9999,
+        backgroundColor: 'var(--cyber-dark)',
+        borderBottom: '2px solid var(--cyber-emerald)',
+        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2)',
+        backdropFilter: 'blur(10px)',
+        WebkitBackdropFilter: 'blur(10px)'
+      }}
+    >
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
