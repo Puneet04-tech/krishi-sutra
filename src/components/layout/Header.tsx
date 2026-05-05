@@ -1,13 +1,16 @@
 'use client'
 
-import React, { useState } from 'react'
-import { Menu, X, Globe, Smartphone } from 'lucide-react'
+import React, { useState, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Menu, X, Globe, Smartphone, Download } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Badge } from '@/components/ui/Badge'
 import { useLanguage } from '@/contexts/LanguageContext'
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [deferredPrompt, setDeferredPrompt] = useState<any>(null)
+  const [showInstallPrompt, setShowInstallPrompt] = useState(false)
   const { language, setLanguage, t } = useLanguage()
 
   const toggleMenu = () => {
@@ -31,6 +34,211 @@ export const Header = () => {
       console.log('Element not found for ID:', sectionId)
     }
     setIsMenuOpen(false)
+  }
+
+  useEffect(() => {
+    // Listen for PWA install prompt (works in production)
+    const handleBeforeInstallPrompt = (e: any) => {
+      console.log('PWA install prompt detected')
+      e.preventDefault()
+      setDeferredPrompt(e)
+      setShowInstallPrompt(true)
+    }
+
+    // Check if running on localhost
+    const isLocalhost = window.location.hostname === 'localhost' || 
+                       window.location.hostname === '127.0.0.1' ||
+                       window.location.hostname.includes('local')
+
+    // Simulate install prompt on localhost for development
+    if (isLocalhost) {
+      console.log('Development mode: Simulating PWA install availability')
+      setShowInstallPrompt(true)
+    } else {
+      // Production: Listen for real install prompt
+      window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt)
+    }
+
+    return () => {
+      if (!isLocalhost) {
+        window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt)
+      }
+    }
+  }, [])
+
+  const handlePWAInstall = async () => {
+    console.log('PWA install clicked')
+    
+    if (deferredPrompt) {
+      // Use the deferred prompt
+      deferredPrompt.prompt()
+      const { outcome } = await deferredPrompt.userChoice
+      console.log('PWA install outcome:', outcome)
+      
+      if (outcome === 'accepted') {
+        console.log('PWA installation accepted')
+        setDeferredPrompt(null)
+        setShowInstallPrompt(false)
+      } else {
+        console.log('PWA installation dismissed')
+      }
+    } else {
+      // Show comprehensive install modal
+      const isStandalone = window.matchMedia('(display-mode: standalone)').matches
+      const userAgent = navigator.userAgent.toLowerCase()
+      const isLocalhost = window.location.hostname === 'localhost' || 
+                         window.location.hostname === '127.0.0.1' ||
+                         window.location.hostname.includes('local')
+      
+      let installInstructions = ''
+      
+      if (isStandalone) {
+        installInstructions = '🎉 KrishiSutra is already installed as a PWA!'
+      } else if (isLocalhost) {
+        installInstructions = `� Development Mode - PWA Install Simulation
+
+⚠️ PWA install prompts don't work on localhost!
+
+📱 To Test PWA Installation:
+
+1. Deploy to HTTPS (Vercel, Netlify, etc.)
+2. Visit the deployed site
+3. Look for install icons in address bar
+4. Or use the "Install App" button there
+
+🚀 Quick Deploy Options:
+• Vercel: Connect GitHub repo
+• Netlify: Drag & drop build folder
+• GitHub Pages: Enable in repo settings
+
+✅ What's Already Working:
+• Complete PWA manifest
+• Service worker registered
+• All icon sizes created
+• Install button ready for production
+
+📋 Production Checklist:
+☐ Deploy to HTTPS
+☐ Visit from mobile device
+☐ Check for install icon (⬇️) in address bar
+☐ Test install process
+☐ Verify standalone mode
+
+💡 Note: PWA install prompts require HTTPS and real domain!`
+      } else if (userAgent.includes('safari') && !userAgent.includes('chrome')) {
+        installInstructions = `📱 Install KrishiSutra PWA (Safari):
+
+Method 1 - Share Menu:
+• Click the Share icon (📤) in the address bar
+• Select "Add to Home Screen"
+• Follow the installation prompts
+
+Method 2 - Settings:
+• Go to Settings > Safari
+• Enable "Add to Home Screen"
+• Return to the app and try again
+
+✅ Benefits:
+• Works offline
+• Faster loading
+• Native app experience
+• No browser interface`
+      } else if (userAgent.includes('firefox')) {
+        installInstructions = `📱 Install KrishiSutra PWA (Firefox):
+
+Method 1 - Address Bar:
+• Look for the install icon (+) in the address bar
+• Click it and follow the prompts
+
+Method 2 - Menu:
+• Click the three lines (☰) in the top-right
+• Select "Install Site"
+• Follow the installation prompts
+
+✅ Benefits:
+• Works offline
+• Faster loading
+• Native app experience
+• No browser interface`
+      } else {
+        installInstructions = `📱 Install KrishiSutra PWA:
+
+Chrome/Edge:
+• Click ⋮ menu → "Install app"
+• Look for install icon in address bar
+
+Safari:
+• Click Share → "Add to Home Screen"
+
+Firefox:
+• Click ☰ menu → "Install Site"
+
+✅ Benefits:
+• Works offline
+• Faster loading
+• Native app experience`
+      }
+      
+      // Create a modal-like experience
+      const modal = document.createElement('div')
+      modal.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+        padding: 20px;
+      `
+      
+      const content = document.createElement('div')
+      content.style.cssText = `
+        background: var(--cyber-dark);
+        border: 2px solid var(--cyber-emerald);
+        border-radius: 12px;
+        padding: 24px;
+        max-width: 500px;
+        max-height: 80vh;
+        overflow-y: auto;
+        color: var(--cyber-emerald);
+        font-family: 'Inter', sans-serif;
+        white-space: pre-line;
+        box-shadow: 0 0 20px var(--cyber-emerald);
+      `
+      
+      content.textContent = installInstructions
+      
+      const closeBtn = document.createElement('button')
+      closeBtn.textContent = 'Close'
+      closeBtn.style.cssText = `
+        background: var(--cyber-emerald);
+        color: var(--cyber-dark);
+        border: none;
+        padding: 8px 16px;
+        border-radius: 6px;
+        margin-top: 16px;
+        cursor: pointer;
+        font-weight: bold;
+      `
+      
+      closeBtn.onclick = () => {
+        document.body.removeChild(modal)
+      }
+      
+      content.appendChild(closeBtn)
+      modal.appendChild(content)
+      document.body.appendChild(modal)
+      
+      modal.onclick = (e) => {
+        if (e.target === modal) {
+          document.body.removeChild(modal)
+        }
+      }
+    }
   }
 
   return (
@@ -98,10 +306,13 @@ export const Header = () => {
 
           {/* Right Actions */}
           <div className="flex items-center space-x-3">
-            <Badge variant="success" className="hidden sm:flex">
-              <Smartphone className="w-3 h-3 mr-1" />
-              PWA Ready
-            </Badge>
+            <button 
+              onClick={handlePWAInstall}
+              className="hidden sm:flex bg-emerald-accent text-cyber-dark border border-emerald-accent rounded-full px-3 py-1 text-xs font-bold transition-all duration-200 hover:bg-emerald-light hover:border-emerald-light cursor-pointer animate-pulse"
+            >
+              <Download className="w-3 h-3 mr-1" />
+              Install App
+            </button>
 
             <Button variant="ghost" size="sm" className="p-2 relative">
               <Globe className="w-5 h-5" />
