@@ -98,7 +98,31 @@ export default function HomePage() {
 
   const handleQRScan = (data: string) => {
     console.log('QR Scanned:', data)
+    // Process QR data - could be crop ID, batch number, etc.
+    if (data.includes('KS-')) {
+      // It's a batch ID, show supply chain details
+      setActiveSection('supply-chain')
+    } else if (data.includes('FARMER-')) {
+      // It's a farmer ID, show profile
+      setActiveSection('profile')
+    } else {
+      // Generic scan, show notification
+      alert(`QR Code Scanned: ${data}\n\nProcessing scan data...`)
+    }
     setShowQRScanner(false)
+  }
+
+  const handleSectionNavigation = (sectionId: string) => {
+    const element = document.getElementById(sectionId)
+    if (element) {
+      const headerHeight = 100 // Account for fixed header
+      const elementPosition = element.offsetTop - headerHeight
+      window.scrollTo({
+        top: elementPosition,
+        behavior: 'smooth'
+      })
+    }
+    setActiveSection(sectionId)
   }
 
   return (
@@ -191,25 +215,33 @@ export default function HomePage() {
         >
           <div 
             className="ceo-card cursor-pointer"
-            onClick={() => console.log('Revenue stats clicked')}
+            onClick={() => {
+              alert('Revenue Details:\n\nTotal Revenue: ₹28,50,000\nMonthly Growth: +12.5%\nSource: Crop Sales + Carbon Credits\n\nView detailed revenue reports in the Analytics section.')
+            }}
           >
             <RevenueStatsCard revenue={2850000} change={12.5} />
           </div>
           <div 
             className="ceo-card cursor-pointer"
-            onClick={() => console.log('Crop stats clicked')}
+            onClick={() => {
+              alert('Crop Portfolio:\n\nActive Crops: 47\nSeason Growth: +8%\nCrops: Wheat, Rice, Pulses\n\nView detailed crop management in the Dashboard.')
+            }}
           >
             <CropStatsCard crops={47} change={8} />
           </div>
           <div 
             className="ceo-card cursor-pointer"
-            onClick={() => console.log('Carbon stats clicked')}
+            onClick={() => {
+              alert('Carbon Credits:\n\nTotal Credits: 1,250\nEarned This Month: +15\nValue: ₹125 per credit\n\nTrade credits in the Marketplace!')
+            }}
           >
             <CarbonStatsCard credits={1250} change={15} />
           </div>
           <div 
             className="ceo-card cursor-pointer"
-            onClick={() => console.log('Insurance stats clicked')}
+            onClick={() => {
+              alert('Insurance Coverage:\n\nActive Coverage: ₹5,00,000\nStatus: Active\nPolicies: 2 Active\n\nManage policies in the Insurance section.')
+            }}
           >
             <InsuranceStatsCard coverage={500000} active={true} />
           </div>
@@ -247,15 +279,21 @@ export default function HomePage() {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
-                <Button className="w-full justify-start">
+                <Button className="w-full justify-start" onClick={() => {
+                  alert('Crop Tokenization:\n\nReady to tokenize your crops!\n\nProcess:\n1. Verify crop quality\n2. Calculate carbon credits\n3. Mint yield tokens\n4. List on marketplace\n\nProceed to Tokenization Center?')
+                }}>
                   <Leaf className="w-4 h-4 mr-2" />
                   Tokenize Crop
                 </Button>
-                <Button variant="secondary" className="w-full justify-start">
+                <Button variant="secondary" className="w-full justify-start" onClick={() => {
+                  alert('Shipment Tracking:\n\nActive Shipments: 3\n\n• KS-2024-05-001 - In Transit\n• KS-2024-05-002 - Processing\n• KS-2024-05-003 - Delivered\n\nView detailed tracking in Supply Chain section.')
+                }}>
                   <Truck className="w-4 h-4 mr-2" />
                   Track Shipment
                 </Button>
-                <Button variant="accent" className="w-full justify-start">
+                <Button variant="accent" className="w-full justify-start" onClick={() => {
+                  setActiveSection('marketplace')
+                }}>
                   <TrendingUp className="w-4 h-4 mr-2" />
                   View Market
                 </Button>
@@ -319,6 +357,16 @@ export default function HomePage() {
           <InsuranceClaims />
         </section>
 
+        {/* Profile Section */}
+        <section id="profile" className="mt-8 scroll-mt-20">
+          <FarmerProfile />
+        </section>
+
+        {/* Weather Section */}
+        <section id="weather" className="mt-8 scroll-mt-20">
+          <WeatherWidget />
+        </section>
+
         {/* Section Navigation */}
         <div className="fixed bottom-4 right-4 z-40">
           <div className="bg-white rounded-lg shadow-lg p-2 space-y-2">
@@ -332,7 +380,7 @@ export default function HomePage() {
             ].map((section) => (
               <button
                 key={section.id}
-                onClick={() => setActiveSection(section.id)}
+                onClick={() => handleSectionNavigation(section.id)}
                 className={`w-12 h-12 rounded-lg flex items-center justify-center text-lg transition-colors ${
                   activeSection === section.id
                     ? 'bg-primary-green text-white'
