@@ -126,7 +126,7 @@ export default function HomePage() {
   }
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-gradient-to-b from-gray-900 to-gray-800">
+    <div className="min-h-screen relative overflow-hidden bg-gradient-to-b from-slate-900 to-slate-800">
       <Header />
       
       {/* QR Scanner Modal */}
@@ -147,7 +147,7 @@ export default function HomePage() {
           <h1 className="text-4xl md:text-5xl font-bold text-emerald-600 mb-4">
             Welcome to KrishiSutra
           </h1>
-          <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-200 max-w-2xl mx-auto">
             National Digital Agriculture Platform - Empowering Farmers with Technology
           </p>
           <div className="flex flex-wrap justify-center gap-3 mt-6">
@@ -177,29 +177,29 @@ export default function HomePage() {
             onClick={() => setShowQRScanner(true)}
             className="gov-button-primary h-auto p-4 flex flex-col items-center space-y-2"
           >
-            <QrCode className="w-8 h-8" />
-            <span className="text-sm">Scan QR</span>
+            <QrCode className="w-8 h-8 text-white" />
+            <span className="text-sm text-white">Scan QR</span>
           </button>
           <button
             className="gov-button-secondary h-auto p-4 flex flex-col items-center space-y-2"
             onClick={() => setActiveSection('loans')}
           >
-            <IndianRupee className="w-8 h-8" />
-            <span className="text-sm">Get Loan</span>
+            <IndianRupee className="w-8 h-8 text-emerald-600" />
+            <span className="text-sm text-emerald-600">Get Loan</span>
           </button>
           <button
             className="gov-button-primary h-auto p-4 flex flex-col items-center space-y-2"
             onClick={() => setActiveSection('marketplace')}
           >
-            <TrendingUp className="w-8 h-8" />
-            <span className="text-sm">Market</span>
+            <TrendingUp className="w-8 h-8 text-white" />
+            <span className="text-sm text-white">Market</span>
           </button>
           <button
             className="gov-button-secondary h-auto p-4 flex flex-col items-center space-y-2"
             onClick={() => setActiveSection('insurance')}
           >
-            <Shield className="w-8 h-8" />
-            <span className="text-sm">Insurance</span>
+            <Shield className="w-8 h-8 text-emerald-600" />
+            <span className="text-sm text-emerald-600">Insurance</span>
           </button>
         </motion.div>
 
@@ -385,7 +385,7 @@ export default function HomePage() {
                 }`}
                 title={section.label}
               >
-                {section.icon}
+                <span className="text-xl">{section.icon}</span>
               </button>
             ))}
           </div>

@@ -118,19 +118,58 @@ h4 {
   margin-bottom: 0.5rem;
 }
 
-p, span, div {
+p, span, div, h1, h2, h3, h4, h5, h6, button, input, textarea, select {
   color: var(--gov-white);
   font-weight: 400;
 }
 
+/* Ensure text visibility */
+.text-white { color: var(--gov-white) !important; }
+.text-gray-300 { color: #D1D5DB !important; }
+.text-gray-400 { color: #9CA3AF !important; }
+.text-gray-500 { color: #6B7280 !important; }
+.text-gray-600 { color: #4B5563 !important; }
+.text-emerald-600 { color: var(--gov-emerald) !important; }
+.text-emerald-500 { color: var(--gov-emerald-light) !important; }
+
 /* Professional Government Components */
 .gov-card {
-  background: var(--glass-gov-bg);
-  border: 1px solid var(--glass-gov-border);
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(0, 208, 132, 0.3);
   border-radius: 12px;
-  box-shadow: var(--glass-gov-shadow);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10px);
   transition: all 0.3s ease;
+  color: #1F2937;
+}
+
+.gov-card h1, .gov-card h2, .gov-card h3, .gov-card h4, .gov-card h5, .gov-card h6 {
+  color: var(--gov-emerald);
+}
+
+.gov-card p, .gov-card span, .gov-card div {
+  color: #1F2937;
+}
+
+.gov-stat-card {
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(0, 208, 132, 0.3);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15), 0 6px 10px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  color: #1F2937;
+}
+
+.gov-stat-card h1, .gov-stat-card h2, .gov-stat-card h3, .gov-stat-card h4, .gov-stat-card h5, .gov-stat-card h6 {
+  color: var(--gov-emerald);
+}
+
+.gov-stat-card p, .gov-stat-card span, .gov-stat-card div {
+  color: #1F2937;
 }
 
 .gov-card:hover {
@@ -202,6 +241,11 @@ p, span, div {
   display: inline-flex;
   align-items: center;
   gap: 4px;
+}
+
+.gov-badge span {
+  color: var(--gov-emerald) !important;
+  font-weight: 600;
 }
 
 .gov-header {
