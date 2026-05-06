@@ -269,8 +269,8 @@ Firefox:
           {/* Logo */}
           <div className="flex items-center space-x-4">
             <div className="flex flex-col">
-              <h1 className="text-2xl font-bold text-emerald-600 tracking-tight">KRISHISUTRA</h1>
-              <p className="text-xs text-gray-500 tracking-wide uppercase">National Agriculture Platform</p>
+              <h1 className="text-2xl font-bold text-emerald-400 tracking-tight">KRISHISUTRA</h1>
+              <p className="text-xs text-gray-400 tracking-wide uppercase">National Agriculture Platform</p>
             </div>
           </div>
 
@@ -278,31 +278,31 @@ Firefox:
           <nav className="hidden lg:flex items-center space-x-8">
             <button 
               onClick={(e) => handleNavClick(e, 'dashboard')}
-              className="text-gray-300 hover:text-emerald-500 transition-colors font-medium text-sm"
+              className="text-gray-300 hover:text-emerald-400 transition-colors font-medium text-sm"
             >
               {t('nav.dashboard')}
             </button>
             <button 
               onClick={(e) => handleNavClick(e, 'supply-chain')}
-              className="text-gray-300 hover:text-emerald-500 transition-colors font-medium text-sm"
+              className="text-gray-300 hover:text-emerald-400 transition-colors font-medium text-sm"
             >
               {t('nav.supplyChain')}
             </button>
             <button 
               onClick={(e) => handleNavClick(e, 'marketplace')}
-              className="text-gray-300 hover:text-emerald-500 transition-colors font-medium text-sm"
+              className="text-gray-300 hover:text-emerald-400 transition-colors font-medium text-sm"
             >
               {t('nav.marketplace')}
             </button>
             <button 
               onClick={(e) => handleNavClick(e, 'loans')}
-              className="text-gray-300 hover:text-emerald-500 transition-colors font-medium text-sm"
+              className="text-gray-300 hover:text-emerald-400 transition-colors font-medium text-sm"
             >
               {t('nav.loans')}
             </button>
             <button 
               onClick={(e) => handleNavClick(e, 'insurance')}
-              className="text-gray-300 hover:text-emerald-500 transition-colors font-medium text-sm"
+              className="text-gray-300 hover:text-emerald-400 transition-colors font-medium text-sm"
             >
               {t('nav.insurance')}
             </button>
@@ -313,7 +313,7 @@ Firefox:
             {/* Language Selector */}
             <div className="relative">
               <button
-                className="flex items-center space-x-2 px-3 py-2 rounded-lg border border-gray-600 hover:border-emerald-500 transition-colors"
+                className="flex items-center space-x-2 px-4 py-2 rounded-lg border border-gray-600 hover:border-emerald-400 transition-colors"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
               >
                 <Globe className="w-4 h-4 text-gray-400" />
@@ -325,7 +325,7 @@ Firefox:
             {showInstallPrompt && (
               <button 
                 onClick={handlePWAInstall}
-                className="hidden sm:flex items-center space-x-2 px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-sm transition-colors"
+                className="hidden sm:flex items-center space-x-2 px-4 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white font-medium text-sm transition-colors"
               >
                 <Download className="w-4 h-4" />
                 <span>Install App</span>

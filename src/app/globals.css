@@ -53,8 +53,8 @@
 
 body {
   font-family: 'Inter', 'Roboto', sans-serif;
-  background: var(--gradient-gov-bg);
-  color: var(--gov-white);
+  background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+  color: #F8FAFC;
   line-height: 1.6;
   overflow-x: hidden;
   position: relative;
@@ -68,18 +68,13 @@ body::before {
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: 
-    /* Professional subtle pattern */
-    linear-gradient(45deg, transparent 48%, rgba(0, 208, 132, 0.03) 49%, rgba(0, 208, 132, 0.03) 51%, transparent 52%),
-    linear-gradient(-45deg, transparent 48%, rgba(0, 208, 132, 0.02) 49%, rgba(0, 208, 132, 0.02) 51%, transparent 52%),
-    /* Government seal pattern */
-    radial-gradient(circle at 10% 10%, rgba(0, 208, 132, 0.08) 0%, transparent 20%),
-    radial-gradient(circle at 90% 90%, rgba(0, 102, 204, 0.05) 0%, transparent 15%),
-    radial-gradient(circle at 50% 50%, rgba(255, 184, 0, 0.03) 0%, transparent 25%);
-  background-size: 100px 100px, 100px 100px, 100% 100%, 100% 100%, 100% 100%;
-  background-attachment: fixed;
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 40% 20%, rgba(251, 146, 60, 0.03) 0%, transparent 40%);
+  background-size: 100% 100%, 100% 100%, 100% 100%;
   pointer-events: none;
-  z-index: -1;
+  z-index: 1;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -134,42 +129,67 @@ p, span, div, h1, h2, h3, h4, h5, h6, button, input, textarea, select {
 
 /* Professional Government Components */
 .gov-card {
-  background: rgba(255, 255, 255, 0.95);
-  border: 1px solid rgba(0, 208, 132, 0.3);
-  border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(20px);
   transition: all 0.3s ease;
-  color: #1F2937;
+  color: #F8FAFC;
+  position: relative;
+  overflow: hidden;
+}
+
+.gov-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(16, 185, 129, 0.5), transparent);
 }
 
 .gov-card h1, .gov-card h2, .gov-card h3, .gov-card h4, .gov-card h5, .gov-card h6 {
-  color: var(--gov-emerald);
+  color: #10B981;
+  font-weight: 700;
 }
 
 .gov-card p, .gov-card span, .gov-card div {
-  color: #1F2937;
+  color: #E2E8F0;
 }
 
 .gov-stat-card {
-  background: rgba(255, 255, 255, 0.95);
-  border: 1px solid rgba(0, 208, 132, 0.3);
-  border-radius: 16px;
-  padding: 24px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15), 0 6px 10px rgba(0, 0, 0, 0.08);
-  backdrop-filter: blur(10px);
-  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 28px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(20px);
+  transition: all 0.4s ease;
   position: relative;
   overflow: hidden;
-  color: #1F2937;
+  color: #F8FAFC;
+}
+
+.gov-stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #10B981, #34D399);
+  border-radius: 20px 20px 0 0;
 }
 
 .gov-stat-card h1, .gov-stat-card h2, .gov-stat-card h3, .gov-stat-card h4, .gov-stat-card h5, .gov-stat-card h6 {
-  color: var(--gov-emerald);
+  color: #10B981;
+  font-weight: 700;
 }
 
 .gov-stat-card p, .gov-stat-card span, .gov-stat-card div {
-  color: #1F2937;
+  color: #E2E8F0;
 }
 
 .gov-card:hover {
@@ -178,40 +198,59 @@ p, span, div, h1, h2, h3, h4, h5, h6, button, input, textarea, select {
 }
 
 .gov-button-primary {
-  background: var(--gradient-gov-primary);
-  color: var(--gov-white);
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+  color: #FFFFFF;
   border: none;
-  border-radius: 8px;
-  padding: 12px 24px;
+  border-radius: 12px;
+  padding: 14px 28px;
   font-weight: 600;
   font-size: 14px;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: var(--shadow-gov-sm);
+  box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.gov-button-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.gov-button-primary:hover::before {
+  left: 100%;
 }
 
 .gov-button-primary:hover {
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-gov-md);
-  background: var(--gov-emerald-dark);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 15px 35px -5px rgba(16, 185, 129, 0.4);
 }
 
 .gov-button-secondary {
-  background: var(--gov-white);
-  color: var(--gov-emerald);
-  border: 2px solid var(--gov-emerald);
-  border-radius: 8px;
-  padding: 10px 22px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #10B981;
+  border: 2px solid #10B981;
+  border-radius: 12px;
+  padding: 12px 26px;
   font-weight: 600;
   font-size: 14px;
   cursor: pointer;
   transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
 }
 
 .gov-button-secondary:hover {
-  background: var(--gov-emerald);
-  color: var(--gov-white);
-  transform: translateY(-1px);
+  background: rgba(16, 185, 129, 0.1);
+  color: #FFFFFF;
+  border-color: #10B981;
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.3);
 }
 
 .gov-input {
@@ -249,13 +288,13 @@ p, span, div, h1, h2, h3, h4, h5, h6, button, input, textarea, select {
 }
 
 .gov-header {
-  background: var(--glass-gov-bg);
-  border-bottom: 1px solid var(--glass-gov-border);
-  backdrop-filter: blur(10px);
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   position: sticky;
   top: 0;
   z-index: 1000;
-  box-shadow: var(--shadow-gov-sm);
+  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.3);
 }
 
 .gov-stat-card {
