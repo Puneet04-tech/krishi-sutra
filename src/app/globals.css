@@ -823,3 +823,58 @@ input:focus, textarea:focus, select:focus {
 .border-primary-green-200 {
   border-color: rgba(16, 185, 129, 0.3) !important;
 }
+
+/* Additional color fixes for agricultural insights */
+.text-yellow-500 { color: #EAB308 !important; }
+.text-blue-500 { color: #3B82F6 !important; }
+.text-purple-500 { color: #A855F7 !important; }
+.text-gray-500 { color: #6B7280 !important; }
+.text-green-700 { color: #059669 !important; }
+.text-blue-700 { color: #1D4ED8 !important; }
+.text-yellow-700 { color: #A16207 !important; }
+.text-purple-700 { color: #7C3AED !important; }
+
+.bg-green-50 { background: rgba(16, 185, 129, 0.15) !important; }
+.bg-blue-50 { background: rgba(59, 130, 246, 0.15) !important; }
+.bg-yellow-50 { background: rgba(234, 179, 8, 0.15) !important; }
+.bg-purple-50 { background: rgba(168, 85, 247, 0.15) !important; }
+.bg-gray-200 { background: rgba(255, 255, 255, 0.3) !important; }
+
+/* Weather component specific fixes */
+.bg-red-100 { background: rgba(239, 68, 68, 0.2) !important; }
+.bg-orange-100 { background: rgba(251, 146, 60, 0.2) !important; }
+.bg-yellow-100 { background: rgba(234, 179, 8, 0.2) !important; }
+.bg-blue-100 { background: rgba(59, 130, 246, 0.2) !important; }
+
+/* Agricultural insights text visibility */
+.agricultural-insights .text-green-700 {
+  color: #10B981 !important;
+}
+
+.agricultural-insights .text-blue-700 {
+  color: #3B82F6 !important;
+}
+
+.agricultural-insights .text-yellow-700 {
+  color: #F59E0B !important;
+}
+
+.agricultural-insights .text-purple-700 {
+  color: #A855F7 !important;
+}
+
+.agricultural-insights .text-green-600 {
+  color: #10B981 !important;
+}
+
+.agricultural-insights .text-blue-600 {
+  color: #3B82F6 !important;
+}
+
+.agricultural-insights .text-yellow-600 {
+  color: #F59E0B !important;
+}
+
+.agricultural-insights .text-purple-600 {
+  color: #A855F7 !important;
+}
