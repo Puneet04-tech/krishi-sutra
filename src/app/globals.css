@@ -636,3 +636,48 @@ p, span, div, h1, h2, h3, h4, h5, h6, button, input, textarea, select {
   background: linear-gradient(to right, #fbbf24, #fde047);
   transform: scale(1.05);
 }
+
+/* Professional color overrides - Complete mapping for all components */
+.text-primary-green { color: #10B981 !important; }
+.text-secondary-slate-600 { color: #E2E8F0 !important; }
+.text-secondary-slate-400 { color: #CBD5E1 !important; }
+.text-secondary-slate-500 { color: #94A3B8 !important; }
+.text-secondary-slate-700 { color: #F1F5F9 !important; }
+.text-accent-gold { color: #F59E0B !important; }
+.text-accent-gold-600 { color: #D97706 !important; }
+.text-green-500 { color: #10B981 !important; }
+.text-green-600 { color: #10B981 !important; }
+.text-blue-600 { color: #3B82F6 !important; }
+
+.bg-primary-green { background: #10B981 !important; }
+.bg-primary-green-50 { background: rgba(16, 185, 129, 0.2) !important; }
+.bg-accent-gold { background: #F59E0B !important; }
+.bg-accent-gold-50 { background: rgba(245, 158, 11, 0.2) !important; }
+.bg-secondary-slate-50 { background: rgba(255, 255, 255, 0.1) !important; }
+.bg-secondary-slate-200 { background: rgba(255, 255, 255, 0.3) !important; }
+.bg-green-50 { background: rgba(16, 185, 129, 0.2) !important; }
+.bg-green-600 { background: #10B981 !important; }
+.bg-blue-50 { background: rgba(59, 130, 246, 0.2) !important; }
+.bg-blue-600 { background: #3B82F6 !important; }
+.bg-gray-50 { background: rgba(255, 255, 255, 0.1) !important; }
+.bg-gray-100 { background: rgba(255, 255, 255, 0.2) !important; }
+.bg-gray-200 { background: rgba(255, 255, 255, 0.3) !important; }
+.bg-gray-300 { background: rgba(255, 255, 255, 0.4) !important; }
+.bg-gray-600 { background: rgba(255, 255, 255, 0.6) !important; }
+
+.border-primary-green { border-color: #10B981 !important; }
+.border-primary-green-200 { border-color: rgba(16, 185, 129, 0.3) !important; }
+.border-secondary-slate-300 { border-color: rgba(255, 255, 255, 0.3) !important; }
+
+/* Ring and focus styles */
+.ring-primary-green { --tw-ring-color: #10B981 !important; }
+.ring-2 { --tw-ring-width: 2px !important; }
+.focus\:ring-primary-green:focus { --tw-ring-color: #10B981 !important; }
+.focus\:ring-2:focus { --tw-ring-width: 2px !important; }
+.focus\:border-transparent:focus { border-color: transparent !important; }
+
+/* Additional utility classes */
+.ring-2 { box-shadow: 0 0 0 2px var(--tw-ring-color, currentColor) !important; }
+.shadow-lg { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important; }
+.hover\:shadow-xl:hover { box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important; }
+.transition-shadow { transition-property: box-shadow !important; transition-duration: 300ms !important; }
