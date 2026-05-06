@@ -126,7 +126,7 @@ export default function HomePage() {
   }
 
   return (
-    <div className="min-h-screen relative overflow-hidden">
+    <div className="min-h-screen relative overflow-hidden bg-gradient-to-b from-gray-900 to-gray-800">
       <Header />
       
       {/* QR Scanner Modal */}
@@ -138,31 +138,31 @@ export default function HomePage() {
       )}
 
       {/* Dashboard Section */}
-      <section id="dashboard" className="container mx-auto px-4 pt-24 pb-8 scroll-mt-20">
+      <section id="dashboard" className="container mx-auto px-6 pt-24 pb-8 scroll-mt-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-8"
         >
-          <h1 className="text-4xl md:text-5xl font-bold text-emerald mb-4">
-            {t('dashboard.welcome')}
+          <h1 className="text-4xl md:text-5xl font-bold text-emerald-600 mb-4">
+            Welcome to KrishiSutra
           </h1>
-          <p className="text-lg text-cyber max-w-2xl mx-auto">
-            {t('dashboard.subtitle')}
+          <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+            National Digital Agriculture Platform - Empowering Farmers with Technology
           </p>
           <div className="flex flex-wrap justify-center gap-3 mt-6">
-            <Badge variant="success" className="flex items-center space-x-1">
+            <div className="gov-badge">
               <Shield className="w-3 h-3" />
               <span>Blockchain Secured</span>
-            </Badge>
-            <Badge variant="info" className="flex items-center space-x-1">
+            </div>
+            <div className="gov-badge">
               <Smartphone className="w-3 h-3" />
               <span>PWA Ready</span>
-            </Badge>
-            <Badge variant="warning" className="flex items-center space-x-1">
+            </div>
+            <div className="gov-badge">
               <Leaf className="w-3 h-3" />
               <span>Carbon Credits</span>
-            </Badge>
+            </div>
           </div>
         </motion.div>
 
@@ -173,37 +173,34 @@ export default function HomePage() {
           transition={{ delay: 0.1 }}
           className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8"
         >
-          <Button
+          <button
             onClick={() => setShowQRScanner(true)}
-            className="h-auto p-4 flex flex-col items-center space-y-2"
+            className="gov-button-primary h-auto p-4 flex flex-col items-center space-y-2"
           >
             <QrCode className="w-8 h-8" />
-            <span className="text-sm">{t('action.scanQR')}</span>
-          </Button>
-          <Button
-            variant="secondary"
-            className="h-auto p-4 flex flex-col items-center space-y-2"
+            <span className="text-sm">Scan QR</span>
+          </button>
+          <button
+            className="gov-button-secondary h-auto p-4 flex flex-col items-center space-y-2"
             onClick={() => setActiveSection('loans')}
           >
             <IndianRupee className="w-8 h-8" />
-            <span className="text-sm">{t('action.getLoan')}</span>
-          </Button>
-          <Button
-            variant="accent"
-            className="h-auto p-4 flex flex-col items-center space-y-2"
+            <span className="text-sm">Get Loan</span>
+          </button>
+          <button
+            className="gov-button-primary h-auto p-4 flex flex-col items-center space-y-2"
             onClick={() => setActiveSection('marketplace')}
           >
             <TrendingUp className="w-8 h-8" />
-            <span className="text-sm">{t('action.market')}</span>
-          </Button>
-          <Button
-            variant="ghost"
-            className="h-auto p-4 flex flex-col items-center space-y-2 border border-primary-green"
+            <span className="text-sm">Market</span>
+          </button>
+          <button
+            className="gov-button-secondary h-auto p-4 flex flex-col items-center space-y-2"
             onClick={() => setActiveSection('insurance')}
           >
             <Shield className="w-8 h-8" />
-            <span className="text-sm">{t('action.insurance')}</span>
-          </Button>
+            <span className="text-sm">Insurance</span>
+          </button>
         </motion.div>
 
         {/* Stats Grid */}
@@ -214,7 +211,7 @@ export default function HomePage() {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8"
         >
           <div 
-            className="ceo-card cursor-pointer"
+            className="gov-stat-card cursor-pointer"
             onClick={() => {
               alert('Revenue Details:\n\nTotal Revenue: ₹28,50,000\nMonthly Growth: +12.5%\nSource: Crop Sales + Carbon Credits\n\nView detailed revenue reports in the Analytics section.')
             }}
@@ -222,7 +219,7 @@ export default function HomePage() {
             <RevenueStatsCard revenue={2850000} change={12.5} />
           </div>
           <div 
-            className="ceo-card cursor-pointer"
+            className="gov-stat-card cursor-pointer"
             onClick={() => {
               alert('Crop Portfolio:\n\nActive Crops: 47\nSeason Growth: +8%\nCrops: Wheat, Rice, Pulses\n\nView detailed crop management in the Dashboard.')
             }}
@@ -230,7 +227,7 @@ export default function HomePage() {
             <CropStatsCard crops={47} change={8} />
           </div>
           <div 
-            className="ceo-card cursor-pointer"
+            className="gov-stat-card cursor-pointer"
             onClick={() => {
               alert('Carbon Credits:\n\nTotal Credits: 1,250\nEarned This Month: +15\nValue: ₹125 per credit\n\nTrade credits in the Marketplace!')
             }}
@@ -238,7 +235,7 @@ export default function HomePage() {
             <CarbonStatsCard credits={1250} change={15} />
           </div>
           <div 
-            className="ceo-card cursor-pointer"
+            className="gov-stat-card cursor-pointer"
             onClick={() => {
               alert('Insurance Coverage:\n\nActive Coverage: ₹5,00,000\nStatus: Active\nPolicies: 2 Active\n\nManage policies in the Insurance section.')
             }}
@@ -368,8 +365,8 @@ export default function HomePage() {
         </section>
 
         {/* Section Navigation */}
-        <div className="fixed bottom-4 right-4 z-40">
-          <div className="bg-white rounded-lg shadow-lg p-2 space-y-2">
+        <div className="fixed bottom-6 right-6 z-40">
+          <div className="gov-card p-3 space-y-2">
             {[
               { id: 'dashboard', label: 'Dashboard', icon: '📊' },
               { id: 'marketplace', label: 'Market', icon: '🛒' },
@@ -381,10 +378,10 @@ export default function HomePage() {
               <button
                 key={section.id}
                 onClick={() => handleSectionNavigation(section.id)}
-                className={`w-12 h-12 rounded-lg flex items-center justify-center text-lg transition-colors ${
+                className={`w-12 h-12 rounded-lg flex items-center justify-center text-lg transition-all duration-300 ${
                   activeSection === section.id
-                    ? 'bg-primary-green text-white'
-                    : 'hover:bg-gray-100'
+                    ? 'bg-emerald-600 text-white shadow-lg'
+                    : 'bg-gray-100 hover:bg-gray-200 text-gray-700'
                 }`}
                 title={section.label}
               >

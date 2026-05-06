@@ -95,7 +95,7 @@ export const Header = () => {
       if (isStandalone) {
         installInstructions = '🎉 KrishiSutra is already installed as a PWA!'
       } else if (isLocalhost) {
-        installInstructions = `🔧 Development Mode - PWA Install Simulation
+        installInstructions = `� Development Mode - PWA Install Simulation
 
 ⚠️ PWA install prompts don't work on localhost!
 
@@ -125,27 +125,6 @@ export const Header = () => {
 ☐ Verify standalone mode
 
 💡 Note: PWA install prompts require HTTPS and real domain!`
-      } else if (userAgent.includes('chrome') || userAgent.includes('edg')) {
-        installInstructions = `📱 Install KrishiSutra PWA (Chrome/Edge):
-
-Method 1 - Address Bar:
-• Look for install icon (⬇️) in the address bar
-• Click it and follow the prompts
-
-Method 2 - Menu:
-• Click the three dots (⋮) in the top-right
-• Select "Install app" or "Install KrishiSutra"
-• Follow the installation prompts
-
-Method 3 - Manual:
-• Click the download icon in our header
-• Follow the browser prompts
-
-✅ Benefits:
-• Works offline
-• Faster loading
-• Native app experience
-• No browser interface`
       } else if (userAgent.includes('safari') && !userAgent.includes('chrome')) {
         installInstructions = `📱 Install KrishiSutra PWA (Safari):
 
@@ -218,17 +197,17 @@ Firefox:
       
       const content = document.createElement('div')
       content.style.cssText = `
-        background: var(--glass-gov-bg);
-        border: 2px solid var(--glass-gov-border);
+        background: var(--cyber-dark);
+        border: 2px solid var(--cyber-emerald);
         border-radius: 12px;
         padding: 24px;
         max-width: 500px;
         max-height: 80vh;
         overflow-y: auto;
-        color: var(--gov-white);
+        color: var(--cyber-emerald);
         font-family: 'Inter', sans-serif;
         white-space: pre-line;
-        box-shadow: var(--glass-gov-shadow);
+        box-shadow: 0 0 20px var(--cyber-emerald);
       `
       
       content.textContent = installInstructions
@@ -236,8 +215,8 @@ Firefox:
       const closeBtn = document.createElement('button')
       closeBtn.textContent = 'Close'
       closeBtn.style.cssText = `
-        background: var(--gov-emerald);
-        color: var(--gov-white);
+        background: var(--cyber-emerald);
+        color: var(--cyber-dark);
         border: none;
         padding: 8px 16px;
         border-radius: 6px;
@@ -263,7 +242,7 @@ Firefox:
   }
 
   return (
-    <header className="gov-header">
+    <header className="gov-header"></header>
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
@@ -282,130 +261,114 @@ Firefox:
             >
               {t('nav.dashboard')}
             </button>
+            >
+              {t('nav.dashboard')}
+            </button>
             <button 
               onClick={(e) => handleNavClick(e, 'supply-chain')}
-              className="text-gray-300 hover:text-emerald-500 transition-colors font-medium text-sm"
+              className="text-secondary hover:text-emerald-accent transition-colors font-bold tracking-wider text-sm px-3 py-2 rounded hover:bg-frosted-cyber bg-transparent border-none cursor-pointer"
             >
               {t('nav.supplyChain')}
             </button>
             <button 
               onClick={(e) => handleNavClick(e, 'marketplace')}
-              className="text-gray-300 hover:text-emerald-500 transition-colors font-medium text-sm"
+              className="text-secondary hover:text-emerald-light transition-colors font-bold tracking-wider text-sm px-3 py-2 rounded hover:bg-frosted-cyber bg-transparent border-none cursor-pointer"
             >
               {t('nav.marketplace')}
             </button>
             <button 
               onClick={(e) => handleNavClick(e, 'loans')}
-              className="text-gray-300 hover:text-emerald-500 transition-colors font-medium text-sm"
+              className="text-secondary hover:text-gold transition-colors font-bold tracking-wider text-sm px-3 py-2 rounded hover:bg-frosted-cyber bg-transparent border-none cursor-pointer"
             >
               {t('nav.loans')}
             </button>
             <button 
               onClick={(e) => handleNavClick(e, 'insurance')}
-              className="text-gray-300 hover:text-emerald-500 transition-colors font-medium text-sm"
+              className="text-secondary hover:text-neon transition-colors font-bold tracking-wider text-sm px-3 py-2 rounded hover:bg-frosted-cyber bg-transparent border-none cursor-pointer"
             >
               {t('nav.insurance')}
             </button>
           </nav>
 
-          {/* Right Side Actions */}
-          <div className="flex items-center space-x-4">
-            {/* Language Selector */}
-            <div className="relative">
-              <button
-                className="flex items-center space-x-2 px-3 py-2 rounded-lg border border-gray-600 hover:border-emerald-500 transition-colors"
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-              >
-                <Globe className="w-4 h-4 text-gray-400" />
-                <span className="text-sm text-gray-300">{language.toUpperCase()}</span>
-              </button>
-            </div>
+          {/* Right Actions */}
+          <div className="flex items-center space-x-3">
+            <button 
+              onClick={handlePWAInstall}
+              className="hidden sm:flex bg-emerald-accent text-cyber-dark border border-emerald-accent rounded-full px-3 py-1 text-xs font-bold transition-all duration-200 hover:bg-emerald-light hover:border-emerald-light cursor-pointer animate-pulse"
+            >
+              <Download className="w-3 h-3 mr-1" />
+              Install App
+            </button>
 
-            {/* PWA Install Button */}
-            {showInstallPrompt && (
-              <button 
-                onClick={handlePWAInstall}
-                className="hidden sm:flex items-center space-x-2 px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-medium text-sm transition-colors"
+            <Button variant="ghost" size="sm" className="p-2 relative">
+              <Globe className="w-5 h-5" />
+              <select
+                value={language}
+                onChange={(e) => setLanguage(e.target.value as any)}
+                className="absolute inset-0 opacity-0 cursor-pointer"
               >
-                <Download className="w-4 h-4" />
-                <span>Install App</span>
-              </button>
-            )}
+                <option value="en">EN</option>
+                <option value="hi">HI</option>
+                <option value="pa">PA</option>
+                <option value="bn">BN</option>
+                <option value="te">TE</option>
+                <option value="mr">MR</option>
+                <option value="gu">GU</option>
+                <option value="ta">TA</option>
+                <option value="kn">KN</option>
+                <option value="ml">ML</option>
+              </select>
+            </Button>
 
             {/* Mobile Menu Toggle */}
-            <button
-              className="lg:hidden p-2 rounded-lg hover:bg-gray-800 transition-colors"
+            <Button
+              variant="ghost"
+              size="sm"
               onClick={toggleMenu}
+              className="lg:hidden p-2"
             >
-              {isMenuOpen ? <X className="w-5 h-5 text-gray-300" /> : <Menu className="w-5 h-5 text-gray-300" />}
-            </button>
+              {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </Button>
           </div>
         </div>
 
-        {/* Mobile Menu */}
-        <AnimatePresence>
-          {isMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="lg:hidden absolute top-full left-0 right-0 bg-gray-900 border-t border-gray-700"
-            >
-              <div className="px-6 py-4 space-y-3">
-                <button 
-                  onClick={(e) => handleNavClick(e, 'dashboard')}
-                  className="block w-full text-left text-gray-300 hover:text-emerald-500 transition-colors font-medium py-2"
-                >
-                  {t('nav.dashboard')}
-                </button>
-                <button 
-                  onClick={(e) => handleNavClick(e, 'supply-chain')}
-                  className="block w-full text-left text-gray-300 hover:text-emerald-500 transition-colors font-medium py-2"
-                >
-                  {t('nav.supplyChain')}
-                </button>
-                <button 
-                  onClick={(e) => handleNavClick(e, 'marketplace')}
-                  className="block w-full text-left text-gray-300 hover:text-emerald-500 transition-colors font-medium py-2"
-                >
-                  {t('nav.marketplace')}
-                </button>
-                <button 
-                  onClick={(e) => handleNavClick(e, 'loans')}
-                  className="block w-full text-left text-gray-300 hover:text-emerald-500 transition-colors font-medium py-2"
-                >
-                  {t('nav.loans')}
-                </button>
-                <button 
-                  onClick={(e) => handleNavClick(e, 'insurance')}
-                  className="block w-full text-left text-gray-300 hover:text-emerald-500 transition-colors font-medium py-2"
-                >
-                  {t('nav.insurance')}
-                </button>
-                
-                {/* Language Options in Mobile Menu */}
-                <div className="pt-4 border-t border-gray-700">
-                  <p className="text-xs text-gray-500 mb-3">Select Language</p>
-                  <div className="grid grid-cols-3 gap-2">
-                    {['en', 'hi', 'pa', 'bn', 'te', 'mr', 'gu', 'ta', 'kn', 'ml'].map((lang) => (
-                      <button
-                        key={lang}
-                        onClick={() => setLanguage(lang as any)}
-                        className={`px-3 py-2 rounded text-xs font-medium transition-colors ${
-                          language === lang
-                            ? 'bg-emerald-600 text-white'
-                            : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
-                        }`}
-                      >
-                        {lang.toUpperCase()}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {/* Mobile Navigation */}
+        {isMenuOpen && (
+          <nav className="lg:hidden mt-4 py-4 border-t border-white/20">
+            <div className="flex flex-col space-y-2">
+              <button 
+                onClick={(e) => handleNavClick(e, 'dashboard')}
+                className="text-secondary hover:text-emerald transition-colors font-bold tracking-wider text-sm py-2 px-3 rounded hover:bg-frosted-cyber bg-transparent border-none cursor-pointer text-left"
+              >
+                {t('nav.dashboard')}
+              </button>
+              <button 
+                onClick={(e) => handleNavClick(e, 'supply-chain')}
+                className="text-secondary hover:text-emerald-accent transition-colors font-bold tracking-wider text-sm py-2 px-3 rounded hover:bg-frosted-cyber bg-transparent border-none cursor-pointer text-left"
+              >
+                {t('nav.supplyChain')}
+              </button>
+              <button 
+                onClick={(e) => handleNavClick(e, 'marketplace')}
+                className="text-secondary hover:text-emerald-light transition-colors font-bold tracking-wider text-sm py-2 px-3 rounded hover:bg-frosted-cyber bg-transparent border-none cursor-pointer text-left"
+              >
+                {t('nav.marketplace')}
+              </button>
+              <button 
+                onClick={(e) => handleNavClick(e, 'loans')}
+                className="text-secondary hover:text-gold transition-colors font-bold tracking-wider text-sm py-2 px-3 rounded hover:bg-frosted-cyber bg-transparent border-none cursor-pointer text-left"
+              >
+                {t('nav.loans')}
+              </button>
+              <button 
+                onClick={(e) => handleNavClick(e, 'insurance')}
+                className="text-secondary hover:text-neon transition-colors font-bold tracking-wider text-sm py-2 px-3 rounded hover:bg-frosted-cyber bg-transparent border-none cursor-pointer text-left"
+              >
+                {t('nav.insurance')}
+              </button>
+            </div>
+          </nav>
+        )}
       </div>
     </header>
   )

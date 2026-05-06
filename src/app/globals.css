@@ -5,33 +5,44 @@
 @tailwind utilities;
 
 :root {
-  /* Cyberpunk Emerald Theme */
-  --cyber-dark: #0A0E0A;
-  --cyber-emerald: #00FF41;
-  --cyber-neon: #00FFFF;
-  --cyber-purple: #FF00FF;
-  --cyber-pink: #FF1493;
-  --cyber-orange: #FF6B35;
-  --emerald-deep: #0D2818;
-  --emerald-dark: #1B4332;
-  --emerald-medium: #2D6A4F;
-  --emerald-light: #40916C;
-  --emerald-accent: #52B788;
-  --frosted-cyber: rgba(10, 14, 10, 0.9);
-  --gold-cyber: #FFD700;
-  --teal-cyber: #00CED1;
-  --purple-cyber: #9D4EDD;
-  --pure-white: #FFFFFF;
-  --neon-white: #F0F8FF;
-  --glass-bg: rgba(10, 14, 10, 0.9);
-  --glass-border: rgba(0, 255, 65, 0.4);
-  --shadow-premium: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 255, 65, 0.2);
-  --shadow-ceo: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
-  --shadow-cyber-emerald: 0 0 30px rgba(0, 255, 65, 0.6);
-  --shadow-cyber-neon: 0 0 35px rgba(0, 255, 255, 0.7);
-  --shadow-cyber-purple: 0 0 40px rgba(255, 0, 255, 0.5);
-  --shadow-cyber-pink: 0 0 35px rgba(255, 20, 147, 0.6);
-  --shadow-cyber-orange: 0 0 30px rgba(255, 107, 53, 0.5);
+  /* Professional Government Emerald Theme */
+  --gov-dark: #0F1419;
+  --gov-emerald: #00D084;
+  --gov-emerald-light: #00F5A0;
+  --gov-emerald-dark: #00875A;
+  --gov-emerald-bg: rgba(0, 208, 132, 0.1);
+  --gov-emerald-border: rgba(0, 208, 132, 0.3);
+  --gov-blue: #0066CC;
+  --gov-blue-light: #4D94FF;
+  --gov-gray-dark: #1A1F2E;
+  --gov-gray-medium: #2D3748;
+  --gov-gray-light: #4A5568;
+  --gov-gray-lighter: #718096;
+  --gov-white: #FFFFFF;
+  --gov-off-white: #F7FAFC;
+  --gov-gold: #FFB800;
+  --gov-gold-light: #FFD23F;
+  --gov-red: #DC2626;
+  --gov-orange: #EA580C;
+  --gov-purple: #7C3AED;
+  
+  /* Professional shadows */
+  --shadow-gov-sm: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  --shadow-gov-md: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+  --shadow-gov-lg: 0 10px 25px rgba(0, 0, 0, 0.15), 0 6px 10px rgba(0, 0, 0, 0.08);
+  --shadow-gov-xl: 0 20px 40px rgba(0, 0, 0, 0.2), 0 10px 20px rgba(0, 0, 0, 0.1);
+  --shadow-gov-emerald: 0 0 0 3px rgba(0, 208, 132, 0.1), 0 4px 6px rgba(0, 0, 0, 0.1);
+  
+  /* Glass morphism for government */
+  --glass-gov-bg: rgba(255, 255, 255, 0.95);
+  --glass-gov-border: rgba(0, 208, 132, 0.2);
+  --glass-gov-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  
+  /* Gradients */
+  --gradient-gov-primary: linear-gradient(135deg, var(--gov-emerald) 0%, var(--gov-emerald-dark) 100%);
+  --gradient-gov-secondary: linear-gradient(135deg, var(--gov-blue) 0%, var(--gov-blue-light) 100%);
+  --gradient-gov-gold: linear-gradient(135deg, var(--gov-gold) 0%, var(--gov-gold-light) 100%);
+  --gradient-gov-bg: linear-gradient(180deg, var(--gov-dark) 0%, var(--gov-gray-dark) 100%);
 }
 
 * {
@@ -42,24 +53,12 @@
 
 body {
   font-family: 'Inter', 'Roboto', sans-serif;
-  background: 
-    /* Cyberpunk grid pattern */
-    linear-gradient(rgba(0, 255, 65, 0.1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 255, 65, 0.1) 1px, transparent 1px),
-    /* Neon radials */
-    radial-gradient(circle at 20% 30%, var(--cyber-emerald) 0%, transparent 40%),
-    radial-gradient(circle at 80% 70%, var(--cyber-neon) 0%, transparent 35%),
-    radial-gradient(circle at 50% 20%, var(--cyber-purple) 0%, transparent 30%),
-    radial-gradient(circle at 30% 80%, var(--cyber-pink) 0%, transparent 35%),
-    radial-gradient(circle at 70% 50%, var(--cyber-orange) 0%, transparent 40%),
-    /* Base background */
-    var(--cyber-dark);
-  background-size: 50px 50px, 50px 50px, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
-  background-attachment: fixed;
-  color: var(--pure-white);
+  background: var(--gradient-gov-bg);
+  color: var(--gov-white);
   line-height: 1.6;
   overflow-x: hidden;
   position: relative;
+  min-height: 100vh;
 }
 
 body::before {
@@ -70,41 +69,179 @@ body::before {
   right: 0;
   bottom: 0;
   background-image: 
-    /* Green dominant ribbons */
-    linear-gradient(45deg, transparent 0%, var(--cyber-emerald) 15%, transparent 25%),
-    linear-gradient(135deg, transparent 0%, var(--emerald-accent) 18%, transparent 35%),
-    linear-gradient(225deg, transparent 0%, var(--emerald-light) 20%, transparent 40%),
-    /* Minimal accent ribbons */
-    linear-gradient(315deg, transparent 0%, var(--cyber-neon) 8%, transparent 20%),
-    linear-gradient(90deg, transparent 0%, var(--cyber-purple) 5%, transparent 15%),
-    /* Static grid lines */
-    linear-gradient(0deg, transparent 49%, rgba(0, 255, 65, 0.05) 50%, transparent 51%),
-    linear-gradient(90deg, transparent 49%, rgba(0, 255, 65, 0.03) 50%, transparent 51%);
-  background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 100%, 100% 2px, 2px 100%;
+    /* Professional subtle pattern */
+    linear-gradient(45deg, transparent 48%, rgba(0, 208, 132, 0.03) 49%, rgba(0, 208, 132, 0.03) 51%, transparent 52%),
+    linear-gradient(-45deg, transparent 48%, rgba(0, 208, 132, 0.02) 49%, rgba(0, 208, 132, 0.02) 51%, transparent 52%),
+    /* Government seal pattern */
+    radial-gradient(circle at 10% 10%, rgba(0, 208, 132, 0.08) 0%, transparent 20%),
+    radial-gradient(circle at 90% 90%, rgba(0, 102, 204, 0.05) 0%, transparent 15%),
+    radial-gradient(circle at 50% 50%, rgba(255, 184, 0, 0.03) 0%, transparent 25%);
+  background-size: 100px 100px, 100px 100px, 100% 100%, 100% 100%, 100% 100%;
+  background-attachment: fixed;
   pointer-events: none;
   z-index: -1;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  color: var(--gov-emerald);
+  letter-spacing: -0.025em;
+  margin-bottom: 0.5em;
+}
+
+h1 {
+  font-size: 2.5rem;
   font-weight: 700;
-  color: var(--cyber-emerald);
-  text-shadow: 
-    0 0 10px var(--cyber-emerald),
-    0 0 20px var(--cyber-emerald),
-    0 0 30px var(--cyber-emerald),
-    0 0 40px rgba(0, 255, 65, 0.5);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+  color: var(--gov-emerald);
+  margin-bottom: 1rem;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--gov-emerald);
+  margin-bottom: 0.75rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--gov-emerald);
+  margin-bottom: 0.5rem;
+}
+
+h4 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--gov-emerald);
+  margin-bottom: 0.5rem;
 }
 
 p, span, div {
-  color: var(--neon-white);
-  text-shadow: 0 0 5px rgba(240, 248, 255, 0.5);
-  font-weight: 500;
+  color: var(--gov-white);
+  font-weight: 400;
 }
 
-/* Cyberpunk text color overrides */
+/* Professional Government Components */
+.gov-card {
+  background: var(--glass-gov-bg);
+  border: 1px solid var(--glass-gov-border);
+  border-radius: 12px;
+  box-shadow: var(--glass-gov-shadow);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.gov-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-gov-lg);
+}
+
+.gov-button-primary {
+  background: var(--gradient-gov-primary);
+  color: var(--gov-white);
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-gov-sm);
+}
+
+.gov-button-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-gov-md);
+  background: var(--gov-emerald-dark);
+}
+
+.gov-button-secondary {
+  background: var(--gov-white);
+  color: var(--gov-emerald);
+  border: 2px solid var(--gov-emerald);
+  border-radius: 8px;
+  padding: 10px 22px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.gov-button-secondary:hover {
+  background: var(--gov-emerald);
+  color: var(--gov-white);
+  transform: translateY(-1px);
+}
+
+.gov-input {
+  background: var(--gov-white);
+  border: 2px solid var(--gov-gray-light);
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.gov-input:focus {
+  outline: none;
+  border-color: var(--gov-emerald);
+  box-shadow: var(--shadow-gov-emerald);
+}
+
+.gov-badge {
+  background: var(--gov-emerald-bg);
+  color: var(--gov-emerald);
+  border: 1px solid var(--gov-emerald-border);
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.gov-header {
+  background: var(--glass-gov-bg);
+  border-bottom: 1px solid var(--glass-gov-border);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: var(--shadow-gov-sm);
+}
+
+.gov-stat-card {
+  background: var(--glass-gov-bg);
+  border: 1px solid var(--glass-gov-border);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: var(--shadow-gov-md);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.gov-stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--gradient-gov-primary);
+}
+
+.gov-stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-gov-lg);
+}
+
+/* Professional color overrides */
 .text-primary {
   color: var(--cyber-emerald) !important;
   text-shadow: 0 0 15px var(--cyber-emerald);

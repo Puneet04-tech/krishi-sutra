@@ -10,17 +10,17 @@ interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export const Card = React.forwardRef<HTMLDivElement, CardProps>(
-  ({ className, children, glass = true, hover = true, premium = false, ceo = false, ...props }, ref) => {
+  ({ className, children, glass = false, hover = true, premium = false, ceo = false, ...props }, ref) => {
     return (
       <div
         ref={ref}
         className={cn(
-          'rounded-2xl p-6 transition-all duration-300 relative z-10',
+          'rounded-xl p-6 transition-all duration-300 relative z-10',
           glass && 'glassmorphism',
           premium && 'premium-surface',
           ceo && 'ceo-card',
           hover && 'card-hover cursor-pointer',
-          !glass && !premium && !ceo && 'bg-white border border-gray-200 shadow-lg',
+          !glass && !premium && !ceo && 'gov-card',
           className
         )}
         {...props}
@@ -70,7 +70,7 @@ export const CardTitle = React.forwardRef<HTMLHeadingElement, React.HTMLAttribut
     return (
       <h3
         ref={ref}
-        className={cn('text-xl font-bold text-primary mb-2', className)}
+        className={cn('text-xl font-semibold text-emerald-600 mb-2', className)}
         {...props}
       >
         {children}
@@ -86,7 +86,7 @@ export const CardDescription = React.forwardRef<HTMLParagraphElement, React.HTML
     return (
       <p
         ref={ref}
-        className={cn('text-secondary text-sm', className)}
+        className={cn('text-gray-600 text-sm', className)}
         {...props}
       >
         {children}

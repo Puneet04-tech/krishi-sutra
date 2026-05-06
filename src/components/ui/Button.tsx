@@ -11,14 +11,14 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = 'primary', size = 'md', loading, children, disabled, ...props }, ref) => {
-    const baseStyles = 'inline-flex items-center justify-center rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none'
+    const baseStyles = 'inline-flex items-center justify-center rounded-lg font-medium transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed'
     
     const variants = {
-      primary: 'bg-gradient-to-r from-cyber-emerald to-emerald-accent text-black font-bold shadow-lg hover:from-emerald-accent hover:to-emerald-light cyber-emerald-glow uppercase tracking-wider',
-      secondary: 'bg-gradient-to-r from-emerald-light to-cyber-neon text-black font-bold shadow-lg hover:from-cyber-neon hover:to-gold-cyber cyber-neon-glow uppercase tracking-wider',
-      accent: 'bg-gradient-to-r from-emerald-accent to-gold-cyber text-black font-bold shadow-lg hover:from-gold-cyber hover:to-cyber-orange cyber-gold-glow uppercase tracking-wider',
-      ghost: 'bg-transparent text-cyber-emerald font-bold hover:text-emerald-accent hover:bg-frosted-cyber cyber-emerald-glow uppercase tracking-wider',
-      outline: 'border-2 border-cyber-emerald text-cyber-emerald font-bold hover:bg-cyber-emerald hover:text-cyber-dark cyber-emerald-glow uppercase tracking-wider'
+      primary: 'bg-emerald-600 text-white font-medium hover:bg-emerald-700 shadow-md hover:shadow-lg transition-all duration-300',
+      secondary: 'bg-white text-emerald-600 font-medium border-2 border-emerald-600 hover:bg-emerald-600 hover:text-white transition-all duration-300',
+      accent: 'bg-blue-600 text-white font-medium hover:bg-blue-700 shadow-md hover:shadow-lg transition-all duration-300',
+      ghost: 'bg-transparent text-gray-600 font-medium hover:text-emerald-600 hover:bg-gray-100 transition-all duration-300',
+      outline: 'border-2 border-emerald-600 text-emerald-600 font-medium hover:bg-emerald-600 hover:text-white transition-all duration-300'
     }
     
     const sizes = {
