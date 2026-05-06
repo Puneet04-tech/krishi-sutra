@@ -138,7 +138,7 @@ export default function HomePage() {
       )}
 
       {/* Dashboard Section */}
-      <section id="dashboard" className="container mx-auto px-6 pt-24 pb-8 scroll-mt-20">
+      <section id="dashboard" className="container mx-auto px-6 pt-32 pb-8 scroll-mt-32">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -325,11 +325,12 @@ export default function HomePage() {
         </div>
 
         {/* Supply Chain Section */}
-        <section id="supply-chain" className="mt-8 scroll-mt-20">
+        <section id="supply-chain" className="mt-8 scroll-mt-32">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
+            className="gov-card p-8"
           >
             <SupplyChainTimeline
               events={timelineEvents}
@@ -340,28 +341,38 @@ export default function HomePage() {
         </section>
 
         {/* Marketplace Section */}
-        <section id="marketplace" className="mt-8 scroll-mt-20">
-          <Marketplace />
+        <section id="marketplace" className="mt-8 scroll-mt-32">
+          <div className="gov-card p-8">
+            <Marketplace />
+          </div>
         </section>
 
         {/* Loans Section */}
-        <section id="loans" className="mt-8 scroll-mt-20">
-          <LoanApplication />
+        <section id="loans" className="mt-8 scroll-mt-32">
+          <div className="gov-card p-8">
+            <LoanApplication />
+          </div>
         </section>
 
         {/* Insurance Section */}
-        <section id="insurance" className="mt-8 scroll-mt-20">
-          <InsuranceClaims />
+        <section id="insurance" className="mt-8 scroll-mt-32">
+          <div className="gov-card p-8">
+            <InsuranceClaims />
+          </div>
         </section>
 
         {/* Profile Section */}
-        <section id="profile" className="mt-8 scroll-mt-20">
-          <FarmerProfile />
+        <section id="profile" className="mt-8 scroll-mt-32">
+          <div className="gov-card p-8">
+            <FarmerProfile />
+          </div>
         </section>
 
         {/* Weather Section */}
-        <section id="weather" className="mt-8 scroll-mt-20">
-          <WeatherWidget />
+        <section id="weather" className="mt-8 scroll-mt-32">
+          <div className="gov-card p-8">
+            <WeatherWidget />
+          </div>
         </section>
 
         {/* Section Navigation */}
