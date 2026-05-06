@@ -681,3 +681,145 @@ p, span, div, h1, h2, h3, h4, h5, h6, button, input, textarea, select {
 .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important; }
 .hover\:shadow-xl:hover { box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important; }
 .transition-shadow { transition-property: box-shadow !important; transition-duration: 300ms !important; }
+
+/* Comprehensive text visibility fixes */
+input, textarea, select {
+  color: #1F2937 !important;
+  background: rgba(255, 255, 255, 0.9) !important;
+  border: 1px solid rgba(16, 185, 129, 0.5) !important;
+}
+
+input::placeholder, textarea::placeholder {
+  color: #6B7280 !important;
+}
+
+input:focus, textarea:focus, select:focus {
+  color: #1F2937 !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-color: #10B981 !important;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1) !important;
+}
+
+/* Text boxes and form elements */
+.gov-input {
+  color: #1F2937 !important;
+  background: rgba(255, 255, 255, 0.9) !important;
+  border: 2px solid rgba(16, 185, 129, 0.5) !important;
+  border-radius: 8px !important;
+  padding: 12px 16px !important;
+  font-size: 14px !important;
+  transition: all 0.3s ease !important;
+  width: 100% !important;
+}
+
+.gov-input:focus {
+  outline: none !important;
+  border-color: #10B981 !important;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1) !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
+/* Agriculture insights specific fixes */
+.agricultural-insights h1,
+.agricultural-insights h2,
+.agricultural-insights h3,
+.agricultural-insights h4,
+.agricultural-insights h5,
+.agricultural-insights h6 {
+  color: #10B981 !important;
+  font-weight: 700 !important;
+}
+
+.agricultural-insights p,
+.agricultural-insights span,
+.agricultural-insights div {
+  color: #E2E8F0 !important;
+}
+
+.agricultural-insights .text-primary-green {
+  color: #10B981 !important;
+}
+
+.agricultural-insights .text-secondary-slate-600 {
+  color: #CBD5E1 !important;
+}
+
+/* Force text visibility in all cards */
+.gov-card p,
+.gov-card span,
+.gov-card div,
+.gov-card h1,
+.gov-card h2,
+.gov-card h3,
+.gov-card h4,
+.gov-card h5,
+.gov-card h6 {
+  color: #F8FAFC !important;
+}
+
+.gov-card .text-primary-green {
+  color: #10B981 !important;
+}
+
+.gov-card .text-secondary-slate-600 {
+  color: #CBD5E1 !important;
+}
+
+/* Specific component fixes */
+.text-primary-green {
+  color: #10B981 !important;
+}
+
+.text-secondary-slate-600 {
+  color: #CBD5E1 !important;
+}
+
+.text-secondary-slate-400 {
+  color: #94A3B8 !important;
+}
+
+.text-secondary-slate-500 {
+  color: #6B7280 !important;
+}
+
+.text-secondary-slate-700 {
+  color: #F1F5F9 !important;
+}
+
+.text-accent-gold {
+  color: #F59E0B !important;
+}
+
+.text-accent-gold-600 {
+  color: #D97706 !important;
+}
+
+/* Background fixes for text visibility */
+.bg-primary-green-50 {
+  background: rgba(16, 185, 129, 0.15) !important;
+}
+
+.bg-secondary-slate-50 {
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+.bg-secondary-slate-200 {
+  background: rgba(255, 255, 255, 0.15) !important;
+}
+
+.bg-green-50 {
+  background: rgba(16, 185, 129, 0.15) !important;
+}
+
+.bg-accent-gold-50 {
+  background: rgba(245, 158, 11, 0.15) !important;
+}
+
+/* Border fixes */
+.border-secondary-slate-300 {
+  border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.border-primary-green-200 {
+  border-color: rgba(16, 185, 129, 0.3) !important;
+}
