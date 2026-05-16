@@ -9,6 +9,7 @@ import { useLanguage } from '@/contexts/LanguageContext'
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isLangOpen, setIsLangOpen] = useState(false)
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null)
   const [showInstallPrompt, setShowInstallPrompt] = useState(false)
   const { language, setLanguage, t } = useLanguage()
@@ -24,14 +25,15 @@ export const Header = () => {
     console.log('Element found:', element)
     if (element) {
       const headerHeight = 100 // Fixed header height
-      const elementPosition = element.offsetTop - headerHeight
+      const rect = element.getBoundingClientRect()
+      const elementPosition = rect.top + window.pageYOffset - headerHeight
       console.log('Scrolling to position:', elementPosition)
       window.scrollTo({
         top: elementPosition,
         behavior: 'smooth'
       })
     } else {
-      console.log('Element not found for ID:', sectionId)
+      console.warn('Element not found for ID:', sectionId)
     }
     setIsMenuOpen(false)
   }
@@ -314,11 +316,40 @@ Firefox:
             <div className="relative">
               <button
                 className="flex items-center space-x-2 px-4 py-2 rounded-lg border border-gray-600 hover:border-emerald-400 transition-colors"
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                onClick={() => setIsLangOpen(!isLangOpen)}
               >
                 <Globe className="w-4 h-4 text-gray-400" />
                 <span className="text-sm text-gray-300">{language.toUpperCase()}</span>
               </button>
+              
+              {/* Desktop Language Dropdown */}
+              <AnimatePresence>
+                {isLangOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    className="absolute right-0 mt-2 w-48 bg-gray-900 border border-gray-700 rounded-lg shadow-xl z-50 p-2 grid grid-cols-2 gap-1"
+                  >
+                    {['en', 'hi', 'pa', 'bn', 'te', 'mr'].map((lang) => (
+                      <button
+                        key={lang}
+                        onClick={() => {
+                          setLanguage(lang as any)
+                          setIsLangOpen(false)
+                        }}
+                        className={`px-3 py-2 rounded text-xs font-medium transition-colors ${
+                          language === lang
+                            ? 'bg-emerald-600 text-white'
+                            : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+                        }`}
+                      >
+                        {lang.toUpperCase()}
+                      </button>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
 
             {/* PWA Install Button */}

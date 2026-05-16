@@ -1,7 +1,7 @@
 'use client'
 
-import React, { useState } from 'react'
-import { motion } from 'framer-motion'
+import React, { useState, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { Header } from '@/components/layout/Header'
 import { Button } from '@/components/ui/Button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
@@ -15,7 +15,10 @@ import { InsuranceClaims } from '@/components/insurance/InsuranceClaims'
 import { FarmerProfile } from '@/components/farmer/FarmerProfile'
 import { WeatherWidget } from '@/components/weather/WeatherWidget'
 import { Badge } from '@/components/ui/Badge'
+import { ConnectionStatusIndicator } from '@/components/common/ConnectionStatus'
 import { useLanguage } from '@/contexts/LanguageContext'
+import { useApiConnection } from '@/hooks/useApiConnection'
+import { farmerProfileApi, yieldTokenApi, insuranceApi, marketplaceApi } from '@/services/api'
 import { 
   QrCode, 
   TrendingUp, 
@@ -31,7 +34,47 @@ import {
 export default function HomePage() {
   const [showQRScanner, setShowQRScanner] = useState(false)
   const [activeSection, setActiveSection] = useState('dashboard')
+  const [notification, setNotification] = useState<string | null>(null)
   const { t } = useLanguage()
+  const { isConnected, backendStatus } = useApiConnection()
+
+  // Load data from backend when connected
+  useEffect(() => {
+    if (isConnected) {
+      // Load initial data from backend
+      loadBackendData()
+    }
+  }, [isConnected])
+
+  const loadBackendData = async () => {
+    try {
+      // Load farmer profile
+      const profileResponse = await farmerProfileApi.get()
+      if (profileResponse.success) {
+        console.log('Farmer profile loaded:', profileResponse.data)
+      }
+
+      // Load yield tokens
+      const tokensResponse = await yieldTokenApi.list()
+      if (tokensResponse.success) {
+        console.log('Yield tokens loaded:', tokensResponse.data)
+      }
+
+      // Load insurance policies
+      const policiesResponse = await insuranceApi.getPolicies()
+      if (policiesResponse.success) {
+        console.log('Insurance policies loaded:', policiesResponse.data)
+      }
+
+      // Load marketplace listings
+      const listingsResponse = await marketplaceApi.getListings()
+      if (listingsResponse.success) {
+        console.log('Marketplace listings loaded:', listingsResponse.data)
+      }
+    } catch (error) {
+      console.error('Failed to load backend data:', error)
+    }
+  }
 
   // Mock data for charts and timeline
   const priceData = [
@@ -112,6 +155,11 @@ export default function HomePage() {
     setShowQRScanner(false)
   }
 
+  const showNotification = (message: string) => {
+    setNotification(message)
+    setTimeout(() => setNotification(null), 3000)
+  }
+
   const handleSectionNavigation = (sectionId: string) => {
     const element = document.getElementById(sectionId)
     if (element) {
@@ -128,6 +176,21 @@ export default function HomePage() {
   return (
     <div className="min-h-screen relative overflow-hidden bg-gradient-to-b from-slate-900 to-slate-800">
       <Header />
+
+      {/* Notification Toast */}
+      <AnimatePresence>
+        {notification && (
+          <motion.div
+            initial={{ opacity: 0, y: -20, x: '-50%' }}
+            animate={{ opacity: 1, y: 20, x: '-50%' }}
+            exit={{ opacity: 0, y: -20, x: '-50%' }}
+            className="fixed top-24 left-1/2 z-50 bg-emerald-600 text-white px-6 py-3 rounded-full shadow-2xl flex items-center space-x-2"
+          >
+            <Zap className="w-4 h-4" />
+            <span className="font-medium">{notification}</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
       
       {/* QR Scanner Modal */}
       {showQRScanner && (
@@ -182,21 +245,21 @@ export default function HomePage() {
           </button>
           <button
             className="gov-button-secondary h-auto p-4 flex flex-col items-center space-y-2"
-            onClick={() => setActiveSection('loans')}
+            onClick={() => handleSectionNavigation('loans')}
           >
             <IndianRupee className="w-8 h-8 text-emerald-600" />
             <span className="text-sm text-emerald-600">Get Loan</span>
           </button>
           <button
             className="gov-button-primary h-auto p-4 flex flex-col items-center space-y-2"
-            onClick={() => setActiveSection('marketplace')}
+            onClick={() => handleSectionNavigation('marketplace')}
           >
             <TrendingUp className="w-8 h-8 text-white" />
             <span className="text-sm text-white">Market</span>
           </button>
           <button
             className="gov-button-secondary h-auto p-4 flex flex-col items-center space-y-2"
-            onClick={() => setActiveSection('insurance')}
+            onClick={() => handleSectionNavigation('insurance')}
           >
             <Shield className="w-8 h-8 text-emerald-600" />
             <span className="text-sm text-emerald-600">Insurance</span>
@@ -277,19 +340,20 @@ export default function HomePage() {
               </CardHeader>
               <CardContent className="space-y-3">
                 <Button className="w-full justify-start" onClick={() => {
-                  alert('Crop Tokenization:\n\nReady to tokenize your crops!\n\nProcess:\n1. Verify crop quality\n2. Calculate carbon credits\n3. Mint yield tokens\n4. List on marketplace\n\nProceed to Tokenization Center?')
+                  handleSectionNavigation('supply-chain')
+                  showNotification && showNotification('Opening Tokenization Center...')
                 }}>
                   <Leaf className="w-4 h-4 mr-2" />
                   Tokenize Crop
                 </Button>
                 <Button variant="secondary" className="w-full justify-start" onClick={() => {
-                  alert('Shipment Tracking:\n\nActive Shipments: 3\n\n• KS-2024-05-001 - In Transit\n• KS-2024-05-002 - Processing\n• KS-2024-05-003 - Delivered\n\nView detailed tracking in Supply Chain section.')
+                  handleSectionNavigation('supply-chain')
                 }}>
                   <Truck className="w-4 h-4 mr-2" />
                   Track Shipment
                 </Button>
                 <Button variant="accent" className="w-full justify-start" onClick={() => {
-                  setActiveSection('marketplace')
+                  handleSectionNavigation('marketplace')
                 }}>
                   <TrendingUp className="w-4 h-4 mr-2" />
                   View Market
@@ -402,6 +466,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      
+      {/* Connection Status Indicator */}
+      <ConnectionStatusIndicator />
     </div>
   )
 }

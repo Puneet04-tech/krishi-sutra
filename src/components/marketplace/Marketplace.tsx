@@ -156,6 +156,27 @@ export const Marketplace: React.FC<MarketplaceProps> = () => {
     return matchesFilter && matchesSearch
   })
 
+  // Identify best match (highest rating among filtered)
+  const bestMatch = searchQuery.length > 0 && filteredTokens.length > 0
+    ? [...filteredTokens].sort((a, b) => b.rating - a.rating)[0]
+    : null
+
+  const handleJumpToBestMatch = () => {
+    if (bestMatch) {
+      const element = document.getElementById(`token-${bestMatch.id}`)
+      if (element) {
+        const headerHeight = 120
+        const rect = element.getBoundingClientRect()
+        const elementPosition = rect.top + window.pageYOffset - headerHeight
+        window.scrollTo({
+          top: elementPosition,
+          behavior: 'smooth'
+        })
+        showNotification(`Jumping to best match: ${bestMatch.cropName}`)
+      }
+    }
+  }
+
   const getQualityColor = (quality: string) => {
     switch (quality) {
       case 'Premium': return 'success'
@@ -197,15 +218,28 @@ export const Marketplace: React.FC<MarketplaceProps> = () => {
         <CardContent className="p-4">
           <div className="flex flex-col md:flex-row gap-4">
             {/* Search */}
-            <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-secondary-slate-400 w-4 h-4" />
-              <input
-                type="text"
-                placeholder="Search crops, farmers, or locations..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-secondary-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-green focus:border-transparent"
-              />
+            <div className="flex-1 space-y-2">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-secondary-slate-400 w-4 h-4" />
+                <input
+                  type="text"
+                  placeholder="Search crops, farmers, or locations..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full pl-10 pr-4 py-2 border border-secondary-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-green focus:border-transparent"
+                />
+              </div>
+              {bestMatch && (
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  className="text-emerald-600 hover:text-emerald-700 p-0 h-auto font-medium flex items-center"
+                  onClick={handleJumpToBestMatch}
+                >
+                  <ArrowUpRight className="w-3 h-3 mr-1" />
+                  Take me to the best result: {bestMatch.cropName}
+                </Button>
+              )}
             </div>
 
             {/* Filters */}
@@ -234,6 +268,7 @@ export const Marketplace: React.FC<MarketplaceProps> = () => {
         {filteredTokens.map((token, index) => (
           <motion.div
             key={token.id}
+            id={`token-${token.id}`}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, delay: index * 0.1 }}

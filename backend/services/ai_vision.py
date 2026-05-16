@@ -35,12 +35,12 @@ class CropQualityAnalyzer:
             model_path = "models/crop_quality_model.h5"
             if os.path.exists(model_path):
                 self.model = tf.keras.models.load_model(model_path)
-                print("✅ Crop quality model loaded successfully")
+                print("[SUCCESS] Crop quality model loaded successfully")
             else:
-                print("⚠️ Model not found, using rule-based analysis")
+                print("[WARNING] Model not found, using rule-based analysis")
                 self.model = None
         except Exception as e:
-            print(f"❌ Error loading model: {e}")
+            print(f"[ERROR] Error loading model: {e}")
             self.model = None
     
     async def analyze_crop_quality(self, image_path: str) -> Dict[str, Any]:
@@ -89,7 +89,7 @@ class CropQualityAnalyzer:
             }
             
         except Exception as e:
-            print(f"❌ Error analyzing crop quality: {e}")
+            print(f"[ERROR] Error analyzing crop quality: {e}")
             return {"error": str(e), "success": False}
     
     async def load_and_preprocess_image(self, image_path: str) -> np.ndarray:
@@ -113,7 +113,7 @@ class CropQualityAnalyzer:
             return image_array
             
         except Exception as e:
-            print(f"❌ Error loading image: {e}")
+            print(f"[ERROR] Error loading image: {e}")
             return None
     
     async def extract_quality_features(self, image: np.ndarray) -> Dict[str, Any]:
@@ -151,7 +151,7 @@ class CropQualityAnalyzer:
             return features
             
         except Exception as e:
-            print(f"❌ Error extracting features: {e}")
+            print(f"[ERROR] Error extracting features: {e}")
             return {}
     
     def calculate_color_histogram(self, image: np.ndarray) -> Dict[str, List[int]]:
@@ -187,7 +187,7 @@ class CropQualityAnalyzer:
             return dominant_colors
             
         except Exception as e:
-            print(f"❌ Error extracting dominant colors: {e}")
+            print(f"[ERROR] Error extracting dominant colors: {e}")
             return []
     
     def calculate_color_variance(self, image: np.ndarray) -> float:
@@ -212,7 +212,7 @@ class CropQualityAnalyzer:
             }
             
         except Exception as e:
-            print(f"❌ Error extracting texture features: {e}")
+            print(f"[ERROR] Error extracting texture features: {e}")
             return {'contrast': 0, 'homogeneity': 0, 'energy': 0}
     
     def calculate_smoothness(self, image: np.ndarray) -> float:
@@ -239,7 +239,7 @@ class CropQualityAnalyzer:
             return 0.5  # Default value
             
         except Exception as e:
-            print(f"❌ Error calculating shape regularity: {e}")
+            print(f"[ERROR] Error calculating shape regularity: {e}")
             return 0.0
     
     def calculate_uniformity(self, image: np.ndarray) -> float:
@@ -280,7 +280,7 @@ class CropQualityAnalyzer:
                 }
             
         except Exception as e:
-            print(f"❌ Error predicting with model: {e}")
+            print(f"[ERROR] Error predicting with model: {e}")
             return {'predicted_class': 'standard', 'confidence': 0.5}
     
     async def predict_with_rules(self, features: Dict[str, Any]) -> Dict[str, Any]:
@@ -320,7 +320,7 @@ class CropQualityAnalyzer:
             }
             
         except Exception as e:
-            print(f"❌ Error predicting with rules: {e}")
+            print(f"[ERROR] Error predicting with rules: {e}")
             return {'predicted_class': 'standard', 'confidence': 0.5}
     
     async def detect_defects(self, image: np.ndarray, features: Dict[str, Any]) -> List[str]:
@@ -332,7 +332,7 @@ class CropQualityAnalyzer:
                 if await detector(image, features):
                     defects.append(defect_name)
             except Exception as e:
-                print(f"❌ Error detecting {defect_name}: {e}")
+                print(f"[ERROR] Error detecting {defect_name}: {e}")
         
         return defects
     
@@ -355,7 +355,7 @@ class CropQualityAnalyzer:
             return unhealthy_percentage > 5.0  # Threshold for discoloration
             
         except Exception as e:
-            print(f"❌ Error detecting discoloration: {e}")
+            print(f"[ERROR] Error detecting discoloration: {e}")
             return False
     
     async def detect_damage(self, image: np.ndarray, features: Dict[str, Any]) -> bool:
@@ -379,7 +379,7 @@ class CropQualityAnalyzer:
             return damage_count > 10  # Threshold for damage
             
         except Exception as e:
-            print(f"❌ Error detecting damage: {e}")
+            print(f"[ERROR] Error detecting damage: {e}")
             return False
     
     async def detect_foreign_matter(self, image: np.ndarray, features: Dict[str, Any]) -> bool:
@@ -398,7 +398,7 @@ class CropQualityAnalyzer:
             return foreign_percentage > 3.0
             
         except Exception as e:
-            print(f"❌ Error detecting foreign matter: {e}")
+            print(f"[ERROR] Error detecting foreign matter: {e}")
             return False
     
     async def detect_moisture_issues(self, image: np.ndarray, features: Dict[str, Any]) -> bool:
@@ -412,7 +412,7 @@ class CropQualityAnalyzer:
             return homogeneity < 0.3
             
         except Exception as e:
-            print(f"❌ Error detecting moisture issues: {e}")
+            print(f"[ERROR] Error detecting moisture issues: {e}")
             return False
     
     async def detect_size_variance(self, image: np.ndarray, features: Dict[str, Any]) -> bool:
@@ -434,7 +434,7 @@ class CropQualityAnalyzer:
             return cv > 0.3  # High variation indicates size issues
             
         except Exception as e:
-            print(f"❌ Error detecting size variance: {e}")
+            print(f"[ERROR] Error detecting size variance: {e}")
             return False
     
     def calculate_quality_score(self, prediction: Dict[str, Any], defects: List[str]) -> float:
@@ -459,7 +459,7 @@ class CropQualityAnalyzer:
             return max(0, min(100, final_score))
             
         except Exception as e:
-            print(f"❌ Error calculating quality score: {e}")
+            print(f"[ERROR] Error calculating quality score: {e}")
             return 50.0
     
     def determine_grade(self, quality_score: float) -> str:
@@ -487,7 +487,7 @@ class CropQualityAnalyzer:
             return max(0, min(100, moisture))
             
         except Exception as e:
-            print(f"❌ Error estimating moisture content: {e}")
+            print(f"[ERROR] Error estimating moisture content: {e}")
             return 12.0  # Default moisture content
     
     async def analyze_size_distribution(self, image: np.ndarray) -> Dict[str, float]:
@@ -519,7 +519,7 @@ class CropQualityAnalyzer:
             }
             
         except Exception as e:
-            print(f"❌ Error analyzing size distribution: {e}")
+            print(f"[ERROR] Error analyzing size distribution: {e}")
             return {}
     
     async def analyze_color_distribution(self, image: np.ndarray) -> Dict[str, Any]:
@@ -545,5 +545,5 @@ class CropQualityAnalyzer:
             }
             
         except Exception as e:
-            print(f"❌ Error analyzing color distribution: {e}")
+            print(f"[ERROR] Error analyzing color distribution: {e}")
             return {}

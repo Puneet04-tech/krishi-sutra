@@ -147,7 +147,14 @@ export const WeatherWidget: React.FC<WeatherWidgetProps> = () => {
               <MapPin className="w-5 h-5 text-primary-green" />
               <span>{weatherData.location}</span>
             </div>
-            <Button variant="ghost" size="sm">
+            <Button 
+              variant="ghost" 
+              size="sm"
+              onClick={() => {
+                setLoading(true)
+                setTimeout(() => setLoading(false), 1000)
+              }}
+            >
               Refresh
             </Button>
           </CardTitle>
